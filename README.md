@@ -1,2 +1,2 @@
 # AAU-Software
-A personal collection of all my hand-ins in Imperative Programming. I can't guarantee everything works.
+A personal collection of all my hand-ins in a Imperative Programming course. I can't guarantee everything works. 
