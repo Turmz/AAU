@@ -1,0 +1,69 @@
+<!--?xml version="1.0" encoding="iso-8859-1"?-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta name="Generator" content="LAML"> <title>Eksamensopgave i Imperativ Programmering, 2017</title></head> <body><h1>Eksamensopgave i Imperativ Programmering, 2017</h1> <p><b>Opgaven udleveres</b>: torsdag 23.11.2017 kl. 14:00. <br> <b>Programmet afleveres</b>: torsdag 30.11.2017 kl. 14:00. <br> <a href="http://people.cs.aau.dk/~normark/cgi-bin/homework/hand-in.cgi?opgave=11">Aflevering af eksamensopgaven: Upload dit program her</a></p> <p>De generelle regler for udarbejdelse og aflevering af opgaven er beskrevet i <a href="http://people.cs.aau.dk/~normark/impr-17/eksamensopgave-pakke-e17/rammer.html">Rammer for Eksamensopgaven i Imperativ Programmering</a>.</p> <p>Hvert forår afvikles der et antal éndags-cykelløb - såkaldte forårsklassikere. I denne opgave gives der <a href="http://people.cs.aau.dk/~normark/impr-17/eksamensopgave-pakke-e17/cykelloeb-2017">data fra fire sådanne cykelløb fra foråret 2017</a>,
+  nemlig Paris Roubaix, Amstell Gold Race, La Fleche Wallonne og Liege 
+Bastogne Liege. Alle data stammer fra UCI (den internationale 
+cykelunion), nærmere bestemt fra <a href="http://www.uci.ch/road/results/"><tt>http://www.uci.ch/road/results/</tt></a>.  De hentede data fra UCI er bearbejdet på forskellig vis, så de er egnede som udgangspunkt for denne opgave. </p> <p>Du
+ skal først indlæse alle løbsdata fra den givne tekstfil til et array af
+ cykelløbsresultater (et array af structs). I dit program skal 
+tekstfilen have navnet "cykelloeb-2017". Hver linje i datafilen 
+repræsenterer ét resultat fra ét cykelløb for én rytter. Formatet af en 
+linje i tekstfilen er:</p> <pre>   løbsnavn rytternavn rytter-alder rytter-hold nationalitet placering køretid</pre> <p>Løbsnavnet
+ angives på sammentrukket vis, i ét ord uden mellemrum. Rytterens navn 
+angives i dobbelt quotes "...", med efternavnet angivet ved brug af 
+store bogstaver. Rytterens alder angives som et heltal. Holdet, som 
+rytteren er tilknyttet, er angivet med en forkortelse på tre store 
+bogstaver. Ligeledes er rytterens nationalitet angivet som en 
+forkortelse på tre store bogstaver. Placeringen er et heltal, hvor 
+tallet 1 betegner vinderen af løbet. Placeringen kan også angives som 
+DNF (did not finish) som tegn på at rytteren ikke gennemførte løbet, 
+eller som OTL (over time limit) som tegn på at rytteren ikke kom i mål 
+inden for løbets tidsgrænse (og dermed ikke opnår en egentlig 
+placering). Køretiden er angivet i timer, minutter og sekunder adskilt 
+med tegnet kolon. Ryttere som ikke har gennemført løbet har en køretid, 
+der er angivet som 0. De syv bestanddele af et løbsresultat er adskilt 
+med et eller flere mellemrum (spaces). Her er et eksempel på et 
+løbsresultat:</p> <pre>   ParisRoubaix               "Greg VAN AVERMAET"                            32  BMC   BEL       1      5:41:07</pre> <p>Det
+ betyder at den 32 årige belgiske cykelrytter Greg Van Avermaet, som 
+kører på holdet BMC, blev nummer ét i Paris Roubaix i tiden 5 timer, 41 
+minuttter og 7 sekunder.</p> <p>I denne opgave tildeles cykelrytterne et
+ antal point (et positivt heltal) ud fra deres deltagelse og opnåede 
+resultater i de cykelløb, som indgår i datamaterialet:</p> <ol><li style="margin-bottom:3mm;">Deltagelse og gennemførelse i et cykelløb (indenfor eller uden for en evt. tidsgrænse) giver 2 point.</li> <li style="margin-bottom:3mm;">Hvis man gennemfører cykelløbet uden at overskride løbets tidsgrænse får man (<em>M</em> - <em>P</em>)/17 extra-point, hvor <em>M</em> er antallet af ryttere der har gennemført løbet (inden for tidsgrænsen) og <em>P</em> er rytterens placering i løbet.</li> <li style="margin-bottom:3mm;">Oven i dette får vinderen af et cykelløb 8 ekstra point, nummer to får 5 ekstra point, og nummer tre får 3 ekstra point.</li></ol> <p>På baggrund af de indlæste data om løbsresultaterne skal du skrive et C program med følgende problemløsningsfunktioner:</p> <ol><li style="margin-bottom:3mm;">Find
+ og udskriv løbsresultaterne for alle belgiske cykelryttere under 23 år.
+ I denne opgave er det OK at lave en funktion som blot printer 
+resultaterne direkte.</li> <li style="margin-bottom:3mm;">Find og 
+udskriv alle de danske ryttere, som har deltaget i et eller flere af de 
+fire cykelløb. Sorter primært disse efter de hold som de kører på. Hvis 
+der er to danske ryttere på samme hold, sorteres de sekundært alfabetisk
+ efter fornavn. Også i denne opgave er det OK at lave en funktion som 
+blot printer resultaterne direkte.</li> <li style="margin-bottom:3mm;">Udskriv
+ de 10 ryttere som har opnået flest point. Sorter primært rytterne efter
+ antal point. Ved pointlighed sorteres efter alder (den yngste først). 
+Ved alderslighed sorteres alfabetisk efter efternavnet. (Efternavnet er 
+den del af rytterens navn som er skrevet med udelukkende store 
+bogstaver).</li> <li style="margin-bottom:3mm;">Find for hvert af de fire løb det hold, der har flest ryttere med en placering angivet som OTL eller DNF.</li> <li style="margin-bottom:3mm;">Find
+ den nation, der samlet set har begået sig bedst i de fire cykelløb. 
+Dette måles efter summen af points, som ryttere fra nationen har opnået i
+ løbene. (Hvis der er pointlighed mellem to eller flere nationer, er det
+ op til dig at vælge én af disse).</li> <li style="margin-bottom:3mm;">Find i hvert af de fire cykelløb mediantiden af løbet. Mediantiden <em>M</em> af et bestemt cykelløb er den opnåede løbstid, hvor halvdelen af løbstiderne er mindre end eller lig med <em>M</em>,  og halvdelen af tiderne er større end eller lig med <em>M</em>.
+  Løbsresultater med en placering angivet som OTL eller DNF indgår ikke,
+ når vi beregner mediantiden. (Hvis antallet af ryttere i et løb er lige
+ ønsker vi at gruppen af ryttere med "en høj tid" er én mindre end 
+gruppen med "en lav tid", relativ til <em>M</em>).</li></ol> <p>Skriv en <kbd>main</kbd>
+ funktion, som i en simpel tekst-orienteret dialog med brugeren tillader
+ aktivering af ovennævnte funktioner. Det anbefales at denne del af 
+programmet laves så simpel som mulig.</p> <p>Som altid anbefales det at 
+programmere én eller flere funktioner pr. opgave, herunder en funktion, 
+der beregner opgavens resultat (gennem returværdi eller parameter). </p> <p>Lad os antage at dit oversatte program er på filen <kbd>cykling.exe</kbd>.  Når dit program køres som</p> <pre>  cykling.exe --print</pre> <p>skal det - <b><em>uden at modtage nogen form for input fra brugeren</em></b> - udskrive dine resultater for alle opgaver på en klar og tydelig måde på standard output. (Brug <a href="http://people.cs.aau.dk/~normark/impr-c/strings-slide-prog-par.html">programparametre</a> til <kbd>main</kbd> for at opnå dette).</p> <p>Når programmet startes uden angivelse af &nbsp; <kbd>--print</kbd> &nbsp; skal det udføre den (simple) brugerdialog.</p> <p>I
+ denne opgave er det OK at anvende danske navne på variable og 
+funktioner. Undgå dog, som sædvanlig i C programmering, brugen af danske
+ bogstaver (æ, ø, å, Æ, Ø og Å) i variabelnavne og funktionsnavne.</p> <p>Når dit program skal vurderes vil der blive lagt vægt på følgende egenskaber:</p> <ul><li style="margin-bottom:3mm;">Læsbarhed
+ og forståelighed, herunder god og klar programopstilling (indrykning 
+mv.) samt fornuftig anvendelse af programkommentarer.</li> <li style="margin-bottom:3mm;">God navngivning af variable, parametre og funktioner, der afspejler den rolle som navnene spiller i programmet.</li> <li style="margin-bottom:3mm;">Fornuftig
+ nedbrydning af problemløsningen i et passende antal funktioner, som 
+følge af top-down programmering ved trinvis forfinelse (del og hersk).</li> <li style="margin-bottom:3mm;">God
+ parametrisering af funktionerne, således at al input til en funktion 
+foregår gennem input parametre, og at output fra en funktionen formidles
+ gennem returværdien eller output parametre.</li> <li style="margin-bottom:3mm;">Fravær af globale variable.</li> <li style="margin-bottom:3mm;">Valg af hensigtsmæssige datastrukturer (structs og arrays).</li> <li style="margin-bottom:3mm;">Hensigtsmæssig anvendelse af funktioner fra C Standard Libraries.</li></ul> <p>Som følge af den begrænsede mængde af data, som skal behandles i denne opgave, prioriteres et <em>enkelt og klart kildeprogram</em> højere end effektivitet af beregningerne.</p> <p>Evt.
+ uklarheder i opgaveformuleringen forventes afklaret som en del af 
+opgaveløsningen (gennem kommentarer i det afleverede program).</p> <p>Hvis der opstår behov for yderligere information om opgaven, vil dette blive føjet til <a href="http://people.cs.aau.dk/~normark/impr-17/eksamensopgave-pakke-e17/FAQ.html">Spørgsmål og Svar</a> dokumentet, som er sat op for opgaven.</p> <p>Kurt Nørmark <br> <a href="mailto:normark@cs.aau.dk">normark@cs.aau.dk</a> <br> <a href="http://people.cs.aau.dk/~normark/">http://people.cs.aau.dk/~normark/</a></p></body></html>
