@@ -11,15 +11,25 @@
  * ----------------------------------------------
  */
 
-// RÆTTA ANSI FEILIR
 
+/* ---------------------------------------------------------------------------------------
+Lav en funktion, som hvis man kigger alle runderne igennem, så hvis du kigger på rytternavnet,
+og siger "dette har jeg ikke allerede" så vil jeg indsætte rytteren. Gør dette ved et loop.
+
+1. Skal både tage hele mit race-array, og mit contestant-array og løbe igennem det.
+2. Lave en funktion, der kan løbe igennem mit contestant-array, og se om der er flere med samme navn, og derefter merge dem sammen.
+3. Hvis den ikke er tilføjet, så skal du have en funktion der gør det.
+ ---------------------------------------------------------------------------------------*/
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
+#define MAX 1000
 
-typedef struct 
+
+
+typedef struct race
 {
     char event[20];
     char firstName[20];
@@ -31,25 +41,37 @@ typedef struct
     int hours;
     int minutes;
     int seconds;
+}race;
 
-}Race;
-
+typedef struct contestant
+{
+    char firstName[20];
+    char lastName[20];
+    int age;
+    char team[4];
+    char nation[4];
+    int points;
+}contestant;
 
 
 /* Prototypes */
-int readFile();
+int readFile(race* allResults);
+void ridersUnder23(race*, int);
+void fillInContestantStruct(race*, int);
 
 
 int main(int argc, char const *argv[])
 {
-    readFile(); 
+    race allResults[MAX];
+    int amountOfResults = readFile(allResults); 
+    ridersUnder23(allResults, amountOfResults);
 
     return 0;
 }
 
-int readFile() {
 
-    Race raceStruct;
+int readFile(race* allResults) {
+    int amountOfResults = 0;
     FILE *fp;
     char* filename = "cykelloeb-2017";
 
@@ -59,31 +81,133 @@ int readFile() {
         return 1;
     }
 
+    while(!feof(fp)){
+
     fscanf(fp, " %s %*c %s %[^\"]%*c %d %s %s %s %d:%d:%d",
-        raceStruct.event,
-        raceStruct.firstName,
-        raceStruct.lastName,
-        &raceStruct.age, 
-        raceStruct.team, 
-        raceStruct.nation,  
-        raceStruct.numberFinished, 
-        &raceStruct.hours,
-        &raceStruct.minutes, 
-        &raceStruct.seconds
+        allResults[amountOfResults].event,
+        allResults[amountOfResults].firstName,
+        allResults[amountOfResults].lastName,
+        &allResults[amountOfResults].age, 
+        allResults[amountOfResults].team, 
+        allResults[amountOfResults].nation,  
+        allResults[amountOfResults].numberFinished, 
+        &allResults[amountOfResults].hours,
+        &allResults[amountOfResults].minutes, 
+        &allResults[amountOfResults].seconds
         );
 
-    printf("%s %s %s %d %s %s %s %d:%d:%d", 
-        raceStruct.event,
-        raceStruct.firstName,
-        raceStruct.lastName,
-        raceStruct.age, 
-        raceStruct.team, 
-        raceStruct.nation,  
-        raceStruct.numberFinished, 
-        raceStruct.hours,
-        raceStruct.minutes, 
-        raceStruct.seconds
-        );
+        
+/*
+    printf("%s %s %s %d %s %s %s %d:%d:%d \n",
+            allResults[amountOfResults].event,
+            allResults[amountOfResults].firstName,
+            allResults[amountOfResults].lastName,
+            allResults[amountOfResults].age, 
+            allResults[amountOfResults].team, 
+            allResults[amountOfResults].nation,  
+            allResults[amountOfResults].numberFinished, 
+            allResults[amountOfResults].hours,
+            allResults[amountOfResults].minutes, 
+            allResults[amountOfResults].seconds); 
+*/
+        amountOfResults++;
+    }
 
-    return 0;
+    fclose(fp);
+
+    printf("%d ryttere.\n", amountOfResults);
+
+    return amountOfResults;
 }
+
+void fillInContestantStruct(race* allResults, int amountofResults){
+    int i = 0;
+    for(i = 0; i < amountofResults; i++) {
+
+}
+/**
+* ----------------------------------
+*   OPGAVE 1:
+*   Find og udskriv løbsresultaterne for alle belgiske cykelryttere under 23 år.
+*   I denne opgave er det OK at lave en funktion som blot printer resultaterne direkte.
+* ----------------------------------
+**/
+
+void ridersUnder23(race* allResults, int amountofResults){
+    printf("OPGAVE 1\n \n");
+
+    int i = 0;
+    for(i = 0; i < amountofResults; i++) {
+        if(strcmp(allResults[i].nation, "BEL") == 0 && allResults[i].age < 23)
+        printf("%s %s %s %d %s %s %s %d:%d:%d \n",
+            allResults[i].event,
+            allResults[i].firstName,
+            allResults[i].lastName,
+            allResults[i].age, 
+            allResults[i].team, 
+            allResults[i].nation,  
+            allResults[i].numberFinished, 
+            allResults[i].hours,
+            allResults[i].minutes, 
+            allResults[i].seconds); 
+    else
+        printf("");
+    
+}
+}
+/*
+void givePoints(contestant){
+
+    if (numberFinished == "DNF")
+    {
+        points == 0;
+    } else 
+        points == 2;
+}
+*/
+
+/**
+* ----------------------------------
+*   OPGAVE 2:
+*   Find og udskriv alle de danske ryttere, som har deltaget i et eller flere af de fire cykelløb.
+*   Sorter primært disse efter de hold som de kører på. Hvis der er to danske ryttere på samme hold,
+*   sorteres de sekundært alfabetisk efter fornavn. Også i denne opgave er det OK at lave en funktion som
+*   blot printer resultaterne direkte.
+* ----------------------------------
+**/
+
+/**
+* ----------------------------------
+*   OPGAVE 3:
+*   Udskriv de 10 ryttere som har opnået flest point. Sorter primært rytterne efter antal point.
+*   Ved pointlighed sorteres efter alder (den yngste først). Ved alderslighed sorteres
+*   alfabetisk efter efternavnet. (Efternavnet er den del af rytterens navn som er skrevet med udelukkende store bogstaver).
+* ----------------------------------
+**/
+
+/**
+* ----------------------------------
+*   OPGAVE 4:
+*   Find for hvert af de fire løb det hold, der har flest ryttere med en placering angivet som OTL eller DNF.
+* ----------------------------------
+*/
+
+/**
+* ----------------------------------
+*   OPGAVE 5:
+*   Find den nation, der samlet set har begået sig bedst i de fire cykelløb.
+*   Dette måles efter summen af points, som ryttere fra nationen har opnået i løbene.
+*   (Hvis der er pointlighed mellem to eller flere nationer, er det op til dig at vælge én af disse).
+* ----------------------------------
+**/
+
+/**
+* ----------------------------------
+*   OPGAVE 6:
+*   Find i hvert af de fire cykelløb mediantiden af løbet. Mediantiden M af et bestemt cykelløb er den opnåede løbstid,
+*   hvor halvdelen af løbstiderne er mindre end eller lig med M, og halvdelen af tiderne er større end eller lig med M.
+*   Løbsresultater med en placering angivet som OTL eller DNF indgår ikke, når vi beregner mediantiden. 
+*   Hvis antallet af ryttere i et løb er lige ønsker vi at gruppen af ryttere med "en høj tid"
+*   er én mindre end gruppen med "en lav tid", relativ til M).
+* ----------------------------------
+**/
