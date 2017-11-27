@@ -28,7 +28,6 @@ og siger "dette har jeg ikke allerede" så vil jeg indsætte rytteren. Gør dett
 #define MAX_TEAM_CHARACTERS 4
 #define MAX_NATION_CHARACTERS 4
 #define MAX_POSITION_CHARACTERS 4
-#define MAX 1000
  
  
  
@@ -62,18 +61,35 @@ typedef struct contestant
 int readFile(race* allResults);
 void ridersUnder23(race*, int);
 void fillInContestantStruct(race*, int, contestant*);
+int lines_counter(void);
  
  
 int main(int argc, char const *argv[])
 {
-    race allResults[MAX];
-    contestant allContestants[MAX];
+    int lines_in_file = lines_counter();
+
+    race allResults[lines_in_file];
+    contestant allContestants[lines_in_file];
     int amountOfResults = readFile(allResults);
     ridersUnder23(allResults, amountOfResults);
     fillInContestantStruct(allResults, amountOfResults, allContestants);
     return 0;
 }
- 
+
+int lines_counter(void){
+    FILE *fp = fopen("cykelloeb-2017", "r");
+    int countedLines = 0, ch = 0;
+    while(!feof(fp)){
+        ch = fgetc(fp);
+        if(ch == '\n'){
+            countedLines++;
+        }
+    }
+
+    return countedLines;
+}
+
+
  
 int readFile(race* allResults) {
     int amountOfResults = 0;
@@ -87,7 +103,7 @@ int readFile(race* allResults) {
     }
  
     while(!feof(fp)){
- 
+ /*SKRIV TIL ANDERS */
     fscanf(fp, " %s %*c %s %[^\"]%*c %d %s %s %s %d:%d:%d",
         allResults[amountOfResults].event,
         allResults[amountOfResults].firstName,
@@ -106,7 +122,7 @@ int readFile(race* allResults) {
  
     fclose(fp);
  
-    printf("%d ryttere.\n", amountOfResults);
+   // printf("%d ryttere.\n", amountOfResults);
  
     return amountOfResults;
 }
@@ -142,7 +158,7 @@ void fillInContestantStruct(race *allResults, int amountofResults, contestant *a
     }
    
    
-    printf("%s %s %d %s %s %d\n", allContestants[i].firstName, allContestants[i].lastName, allContestants[i].age, allContestants[i].team, allContestants[i].nation, allContestants[i].points);
+   // printf("%s %s %d %s %s %d\n", allContestants[i].firstName, allContestants[i].lastName, allContestants[i].age, allContestants[i].team, allContestants[i].nation, allContestants[i].points);
     }
 }
 /**
@@ -154,7 +170,7 @@ void fillInContestantStruct(race *allResults, int amountofResults, contestant *a
 **/
  
 void ridersUnder23(race* allResults, int amountofResults){
-    printf("OPGAVE 1\n \n");
+    printf("\n OPGAVE 1\n \n");
  
     int i = 0;
     for(i = 0; i < amountofResults; i++) {
@@ -175,15 +191,6 @@ void ridersUnder23(race* allResults, int amountofResults){
    
 }
 }
-/*
-void givePoints(contestant){
-    if (position == "DNF")
-    {
-        points == 0;
-    } else
-        points == 2;
-}
-*/
  
 /**
 * ----------------------------------
@@ -195,6 +202,8 @@ void givePoints(contestant){
 * ----------------------------------
 **/
  
+
+
 /**
 * ----------------------------------
 *   OPGAVE 3:
