@@ -58,10 +58,12 @@ typedef struct contestant
  
  
 /* Prototypes */
-int readFile(race* allResults);
-void ridersUnder23(race*, int);
-void fillInContestantStruct(race*, int, contestant*);
 int lines_counter(void);
+int readFile(race* allResults);
+void fillInContestantStruct(race*, int, contestant*);
+void ridersUnder23(race*, int);
+
+
  
  
 int main(int argc, char const *argv[])
@@ -126,30 +128,51 @@ int readFile(race* allResults) {
  
     return amountOfResults;
 }
- 
+
+
+/*
+Cykelrytterne tildeles et antal point (et positivt heltal) ud fra deres deltagelse, og deres opnåede resultater,
+i de cykelløb som indgår i datamaterialet. Her er reglerne for tildeling af points:
+
+1. Deltagelse og gennemførelse i et cykelløb (indenfor eller uden for en evt. tidsgrænse) giver 2 point.
+2. Hvis man gennemfører cykelløbet uden at overskride løbets tidsgrænse får man (M - P)/17 extra-point,
+   hvor M er antallet af ryttere der har gennemført løbet (inden for tidsgrænsen) og P er rytterens placering i løbet.
+3. Oven i dette får vinderen af et cykelløb 8 ekstra point, nummer to får 5 ekstra point, og nummer tre får 3 ekstra point.
+
+*/
+
 void fillInContestantStruct(race *allResults, int amountofResults, contestant *allContestants){
     int i = 0, comparePostion = 0;
     for(i = 0; i < amountofResults; i++) {
-    allContestants[i].points = 0;
-    strcpy(allContestants[i].firstName, allResults[i].firstName);
-    strcpy(allContestants[i].lastName, allResults[i].lastName);
-    allContestants[i].age = allResults[i].age;
-    strcpy(allContestants[i].team, allResults[i].team);
-    strcpy(allContestants[i].nation, allResults[i].nation);
-    strcpy(allContestants[i].position, allResults[i].position);
-   
-    if (atoi(allContestants[i].position) != 0)
+        allContestants[i].points = 0;
+        strcpy(allContestants[i].firstName, allResults[i].firstName);
+        strcpy(allContestants[i].lastName, allResults[i].lastName);
+        allContestants[i].age = allResults[i].age;
+        strcpy(allContestants[i].team, allResults[i].team);
+        strcpy(allContestants[i].nation, allResults[i].nation);
+        strcpy(allContestants[i].position, allResults[i].position);
+
+/* 1. Deltagelse og gennemførelse i et cykelløb (indenfor eller uden for en evt. tidsgrænse) giver 2 point. */
+    if(atoi(allContestants[i].position) != 0)
     {
         allContestants[i].points += 2;
         comparePostion = atoi(allContestants[i].position);
     }  
-        if (comparePostion == 1) {
+
+/* 2. Hvis man gennemfører cykelløbet uden at overskride løbets tidsgrænse får man (M - P)/17 extra-point,
+      hvor M er antallet af ryttere der har gennemført løbet (inden for tidsgrænsen) og P er rytterens placering i løbet. */
+    if ()
+
+
+    
+/* 3. Oven i dette får vinderen af et cykelløb 8 ekstra point, nummer to får 5 ekstra point, og nummer tre får 3 ekstra point. */
+        if(comparePostion == 1) {
             allContestants[i].points += 8;
         }
-        if (comparePostion == 2) {
+        if(comparePostion == 2) {
             allContestants[i].points += 5;
         }
-        if (comparePostion == 3) {
+        if(comparePostion == 3) {
             allContestants[i].points += 3;
         }
        
@@ -158,9 +181,11 @@ void fillInContestantStruct(race *allResults, int amountofResults, contestant *a
     }
    
    
-   // printf("%s %s %d %s %s %d\n", allContestants[i].firstName, allContestants[i].lastName, allContestants[i].age, allContestants[i].team, allContestants[i].nation, allContestants[i].points);
+    printf("%s %s %d %s %s %d\n", allContestants[i].firstName, allContestants[i].lastName, allContestants[i].age, allContestants[i].team, allContestants[i].nation, allContestants[i].points);
     }
 }
+
+
 /**
 * ----------------------------------
 *   OPGAVE 1:
