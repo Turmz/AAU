@@ -1,4 +1,3 @@
-
 /**
  * Sigvardsen_Tummas_20164825
  *
@@ -10,120 +9,141 @@
  * Study: Interaktionsdesign
  * ----------------------------------------------
  */
-
-
+ 
+ 
 /* ---------------------------------------------------------------------------------------
 Lav en funktion, som hvis man kigger alle runderne igennem, så hvis du kigger på rytternavnet,
 og siger "dette har jeg ikke allerede" så vil jeg indsætte rytteren. Gør dette ved et loop.
-
 1. Skal både tage hele mit race-array, og mit contestant-array og løbe igennem det.
 2. Lave en funktion, der kan løbe igennem mit contestant-array, og se om der er flere med samme navn, og derefter merge dem sammen.
 3. Hvis den ikke er tilføjet, så skal du have en funktion der gør det.
  ---------------------------------------------------------------------------------------*/
-
+ 
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
+#define MAX_EVENT_CHARACTERS 20
+#define MAX_NAME_CHARACTERS 20
+#define MAX_TEAM_CHARACTERS 4
+#define MAX_NATION_CHARACTERS 4
+#define MAX_POSITION_CHARACTERS 4
 #define MAX 1000
-
-
-
+ 
+ 
+ 
 typedef struct race
 {
-    char event[20];
-    char firstName[20];
-    char lastName[20];
+    char event[MAX_EVENT_CHARACTERS];
+    char firstName[MAX_NAME_CHARACTERS];
+    char lastName[MAX_NAME_CHARACTERS];
     int age;
-    char team[4];
-    char nation[4];
-    char numberFinished[4];
+    char team[MAX_TEAM_CHARACTERS];
+    char nation[MAX_NATION_CHARACTERS];
+    char position[MAX_POSITION_CHARACTERS];
     int hours;
     int minutes;
     int seconds;
 }race;
-
+ 
 typedef struct contestant
 {
-    char firstName[20];
-    char lastName[20];
+    char firstName[MAX_NAME_CHARACTERS];
+    char lastName[MAX_NAME_CHARACTERS];
     int age;
-    char team[4];
-    char nation[4];
+    char team[MAX_TEAM_CHARACTERS];
+    char nation[MAX_TEAM_CHARACTERS];
+    char position[MAX_POSITION_CHARACTERS];
     int points;
 }contestant;
-
-
+ 
+ 
 /* Prototypes */
 int readFile(race* allResults);
 void ridersUnder23(race*, int);
-void fillInContestantStruct(race*, int);
-
-
+void fillInContestantStruct(race*, int, contestant*);
+ 
+ 
 int main(int argc, char const *argv[])
 {
     race allResults[MAX];
-    int amountOfResults = readFile(allResults); 
+    contestant allContestants[MAX];
+    int amountOfResults = readFile(allResults);
     ridersUnder23(allResults, amountOfResults);
-
+    fillInContestantStruct(allResults, amountOfResults, allContestants);
     return 0;
 }
-
-
+ 
+ 
 int readFile(race* allResults) {
     int amountOfResults = 0;
     FILE *fp;
     char* filename = "cykelloeb-2017";
-
+ 
     fp = fopen(filename, "r");
     if (fp == NULL){
         printf("Could not open file %s",filename);
         return 1;
     }
-
+ 
     while(!feof(fp)){
-
+ 
     fscanf(fp, " %s %*c %s %[^\"]%*c %d %s %s %s %d:%d:%d",
         allResults[amountOfResults].event,
         allResults[amountOfResults].firstName,
         allResults[amountOfResults].lastName,
-        &allResults[amountOfResults].age, 
-        allResults[amountOfResults].team, 
+        &allResults[amountOfResults].age,
+        allResults[amountOfResults].team,
         allResults[amountOfResults].nation,  
-        allResults[amountOfResults].numberFinished, 
+        allResults[amountOfResults].position,
         &allResults[amountOfResults].hours,
-        &allResults[amountOfResults].minutes, 
+        &allResults[amountOfResults].minutes,
         &allResults[amountOfResults].seconds
         );
-
-        
-/*
-    printf("%s %s %s %d %s %s %s %d:%d:%d \n",
-            allResults[amountOfResults].event,
-            allResults[amountOfResults].firstName,
-            allResults[amountOfResults].lastName,
-            allResults[amountOfResults].age, 
-            allResults[amountOfResults].team, 
-            allResults[amountOfResults].nation,  
-            allResults[amountOfResults].numberFinished, 
-            allResults[amountOfResults].hours,
-            allResults[amountOfResults].minutes, 
-            allResults[amountOfResults].seconds); 
-*/
+ 
         amountOfResults++;
     }
-
+ 
     fclose(fp);
-
+ 
     printf("%d ryttere.\n", amountOfResults);
-
+ 
     return amountOfResults;
 }
-
-void fillInContestantStruct(race* allResults, int amountofResults){
-    int i = 0;
+ 
+void fillInContestantStruct(race *allResults, int amountofResults, contestant *allContestants){
+    int i = 0, comparePostion = 0;
     for(i = 0; i < amountofResults; i++) {
-
+    allContestants[i].points = 0;
+    strcpy(allContestants[i].firstName, allResults[i].firstName);
+    strcpy(allContestants[i].lastName, allResults[i].lastName);
+    allContestants[i].age = allResults[i].age;
+    strcpy(allContestants[i].team, allResults[i].team);
+    strcpy(allContestants[i].nation, allResults[i].nation);
+    strcpy(allContestants[i].position, allResults[i].position);
+   
+    if (atoi(allContestants[i].position) != 0)
+    {
+        allContestants[i].points += 2;
+        comparePostion = atoi(allContestants[i].position);
+    }  
+        if (comparePostion == 1) {
+            allContestants[i].points += 8;
+        }
+        if (comparePostion == 2) {
+            allContestants[i].points += 5;
+        }
+        if (comparePostion == 3) {
+            allContestants[i].points += 3;
+        }
+       
+    if(strcmp(allContestants[i].position, "OTF")){
+        printf("");
+    }
+   
+   
+    printf("%s %s %d %s %s %d\n", allContestants[i].firstName, allContestants[i].lastName, allContestants[i].age, allContestants[i].team, allContestants[i].nation, allContestants[i].points);
+    }
 }
 /**
 * ----------------------------------
@@ -132,10 +152,10 @@ void fillInContestantStruct(race* allResults, int amountofResults){
 *   I denne opgave er det OK at lave en funktion som blot printer resultaterne direkte.
 * ----------------------------------
 **/
-
+ 
 void ridersUnder23(race* allResults, int amountofResults){
     printf("OPGAVE 1\n \n");
-
+ 
     int i = 0;
     for(i = 0; i < amountofResults; i++) {
         if(strcmp(allResults[i].nation, "BEL") == 0 && allResults[i].age < 23)
@@ -143,29 +163,28 @@ void ridersUnder23(race* allResults, int amountofResults){
             allResults[i].event,
             allResults[i].firstName,
             allResults[i].lastName,
-            allResults[i].age, 
-            allResults[i].team, 
+            allResults[i].age,
+            allResults[i].team,
             allResults[i].nation,  
-            allResults[i].numberFinished, 
+            allResults[i].position,
             allResults[i].hours,
-            allResults[i].minutes, 
-            allResults[i].seconds); 
+            allResults[i].minutes,
+            allResults[i].seconds);
     else
         printf("");
-    
+   
 }
 }
 /*
 void givePoints(contestant){
-
-    if (numberFinished == "DNF")
+    if (position == "DNF")
     {
         points == 0;
-    } else 
+    } else
         points == 2;
 }
 */
-
+ 
 /**
 * ----------------------------------
 *   OPGAVE 2:
@@ -175,7 +194,7 @@ void givePoints(contestant){
 *   blot printer resultaterne direkte.
 * ----------------------------------
 **/
-
+ 
 /**
 * ----------------------------------
 *   OPGAVE 3:
@@ -184,14 +203,14 @@ void givePoints(contestant){
 *   alfabetisk efter efternavnet. (Efternavnet er den del af rytterens navn som er skrevet med udelukkende store bogstaver).
 * ----------------------------------
 **/
-
+ 
 /**
 * ----------------------------------
 *   OPGAVE 4:
 *   Find for hvert af de fire løb det hold, der har flest ryttere med en placering angivet som OTL eller DNF.
 * ----------------------------------
 */
-
+ 
 /**
 * ----------------------------------
 *   OPGAVE 5:
@@ -200,14 +219,15 @@ void givePoints(contestant){
 *   (Hvis der er pointlighed mellem to eller flere nationer, er det op til dig at vælge én af disse).
 * ----------------------------------
 **/
-
+ 
 /**
 * ----------------------------------
 *   OPGAVE 6:
 *   Find i hvert af de fire cykelløb mediantiden af løbet. Mediantiden M af et bestemt cykelløb er den opnåede løbstid,
 *   hvor halvdelen af løbstiderne er mindre end eller lig med M, og halvdelen af tiderne er større end eller lig med M.
-*   Løbsresultater med en placering angivet som OTL eller DNF indgår ikke, når vi beregner mediantiden. 
+*   Løbsresultater med en placering angivet som OTL eller DNF indgår ikke, når vi beregner mediantiden.
 *   Hvis antallet af ryttere i et løb er lige ønsker vi at gruppen af ryttere med "en høj tid"
 *   er én mindre end gruppen med "en lav tid", relativ til M).
 * ----------------------------------
-**/
+
+    **/
