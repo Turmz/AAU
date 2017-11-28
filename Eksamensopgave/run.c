@@ -28,7 +28,7 @@ og siger "dette har jeg ikke allerede" så vil jeg indsætte rytteren. Gør dett
 #define MAX_TEAM_CHARACTERS 4
 #define MAX_NATION_CHARACTERS 4
 #define MAX_POSITION_CHARACTERS 4
- 
+#define MAX_TIME 10
  
  
 typedef struct race
@@ -40,9 +40,7 @@ typedef struct race
     char team[MAX_TEAM_CHARACTERS];
     char nation[MAX_NATION_CHARACTERS];
     char position[MAX_POSITION_CHARACTERS];
-    int hours;
-    int minutes;
-    int seconds;
+    char time[MAX_TIME];
 }race;
  
 typedef struct contestant
@@ -62,6 +60,7 @@ int lines_counter(void);
 int readFile(race* allResults);
 void fillInContestantStruct(race*, int, contestant*);
 void ridersUnder23(race*, int);
+void getM(race *);
 
 
  
@@ -105,8 +104,8 @@ int readFile(race* allResults) {
     }
  
     while(!feof(fp)){
- /*SKRIV TIL ANDERS */
-    fscanf(fp, " %s %*c %s %[^\"]%*c %d %s %s %s %d:%d:%d",
+
+    fscanf(fp, " %s %*c %s %[^\"]%*c %d %s %s %s %s ",
         allResults[amountOfResults].event,
         allResults[amountOfResults].firstName,
         allResults[amountOfResults].lastName,
@@ -114,14 +113,21 @@ int readFile(race* allResults) {
         allResults[amountOfResults].team,
         allResults[amountOfResults].nation,  
         allResults[amountOfResults].position,
-        &allResults[amountOfResults].hours,
-        &allResults[amountOfResults].minutes,
-        &allResults[amountOfResults].seconds
+        allResults[amountOfResults].time
         );
  
         amountOfResults++;
     }
  
+
+    int convertSeconds(char *time){
+
+        int seconds = 0, hours = 0, minutes = 0;
+
+        sscanf(time, " %d:%d:%d", &hours, &minutes, &seconds);
+
+        return (hours * 3600) + (minutes * 60) + seconds;
+    } 
     fclose(fp);
  
    // printf("%d ryttere.\n", amountOfResults);
@@ -150,31 +156,32 @@ void fillInContestantStruct(race *allResults, int amountofResults, contestant *a
         allContestants[i].age = allResults[i].age;
         strcpy(allContestants[i].team, allResults[i].team);
         strcpy(allContestants[i].nation, allResults[i].nation);
-        strcpy(allContestants[i].position, allResults[i].position);
 
 /* 1. Deltagelse og gennemførelse i et cykelløb (indenfor eller uden for en evt. tidsgrænse) giver 2 point. */
-    if(atoi(allContestants[i].position) != 0)
-    {
-        allContestants[i].points += 2;
-        comparePostion = atoi(allContestants[i].position);
-    }  
+        if(!(strcmp(allResults[i].position, "DNF") == 0))
+        {
+            allContestants[i].points += 2;
+            comparePostion = atoi(allResults[i].position);
+        }  
 
 /* 2. Hvis man gennemfører cykelløbet uden at overskride løbets tidsgrænse får man (M - P)/17 extra-point,
       hvor M er antallet af ryttere der har gennemført løbet (inden for tidsgrænsen) og P er rytterens placering i løbet. */
-    //Det ville være ok smart, at lave et double for-loop her, men det ville så også medføre, at
-    //tiden bliver ekspotionelt mere.
+int riders_finished(contestant *conArray, char *nameOfRace, int linesInFile){
+    int i = 0, numberOfRiders = 0;
+    for (i = 0; i < linesInFile; i++) {
+        if (strcmp(conArray[i].nameOfRace, nameOfRace) == 0 && strcmp(conArray[i].placement, "DNF") != 0){
+            numberOfRiders++; }
+        }
+return numberOfRiders;
+}
 
-//Pseudokode
-    if (comparePostion == "OTL"){
-            allContestants[i].points += 0;
-    } else if (comparePostion == "DNF"){
-            allContestants[i].points += 0;
-    } else 
-            loop through allContestants[i].position && allResults[amountOfResults].event. For each time
-            you meet a new event register the name, and line number. Now go though all the positions
-            of the event, and register the numbers of contestants that dont have OTL or DNF postions.
-            Give all the contestants points (M-P)/17 where you have "M", which is the number of finished
-            contestants and P which is the position where the contestant finished and.
+       // int m = getM(allResults, amountofResults, allResults[i].event);
+
+        if(!(strcmp(allResults[i].position, "OTL") == 0 || strcmp(allResults[i].position, "DNF") == 0)){
+        
+        } else 
+            allContestants[i].points += (getM(allResults[i].event) - atoi(allResults[i].position))/17;
+        
 
 /* 3. Oven i dette får vinderen af et cykelløb 8 ekstra point, nummer to får 5 ekstra point, og nummer tre får 3 ekstra point. */
         if(comparePostion == 1) {
@@ -192,9 +199,8 @@ void fillInContestantStruct(race *allResults, int amountofResults, contestant *a
     }
    
    
-    printf("%s %s %d %s %s %d\n", allContestants[i].firstName, allContestants[i].lastName, allContestants[i].age, allContestants[i].team, allContestants[i].nation, allContestants[i].points);
-    }
-}
+    printf("%d", allContestants[i].points);
+
 
 
 /**
@@ -211,7 +217,7 @@ void ridersUnder23(race* allResults, int amountofResults){
     int i = 0;
     for(i = 0; i < amountofResults; i++) {
         if(strcmp(allResults[i].nation, "BEL") == 0 && allResults[i].age < 23)
-        printf("%s %s %s %d %s %s %s %d:%d:%d \n",
+        printf("%s %s %s %d %s %s %s %s \n",
             allResults[i].event,
             allResults[i].firstName,
             allResults[i].lastName,
@@ -219,9 +225,7 @@ void ridersUnder23(race* allResults, int amountofResults){
             allResults[i].team,
             allResults[i].nation,  
             allResults[i].position,
-            allResults[i].hours,
-            allResults[i].minutes,
-            allResults[i].seconds);
+            allResults[i].time);
     else
         printf("");
    
