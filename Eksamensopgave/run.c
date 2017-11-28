@@ -161,10 +161,19 @@ void fillInContestantStruct(race *allResults, int amountofResults, contestant *a
 
 /* 2. Hvis man gennemfører cykelløbet uden at overskride løbets tidsgrænse får man (M - P)/17 extra-point,
       hvor M er antallet af ryttere der har gennemført løbet (inden for tidsgrænsen) og P er rytterens placering i løbet. */
-    if ()
 
+//Pseudokode
+    if (comparePostion == "OTL"){
+            allContestants[i].points += 0;
+    } else if (comparePostion == "DNF"){
+            allContestants[i].points += 0;
+    } else 
+            loop through allContestants[i].position && allResults[amountOfResults].event. For each time
+            you meet a new event register the name, and line number. Now go though all the positions
+            of the event, and register the numbers of contestants that dont have OTL or DNF postions.
+            Give all the contestants points (M-P)/17 where you have "M", which is the number of finished
+            contestants and P which is the position where the contestant finished and.
 
-    
 /* 3. Oven i dette får vinderen af et cykelløb 8 ekstra point, nummer to får 5 ekstra point, og nummer tre får 3 ekstra point. */
         if(comparePostion == 1) {
             allContestants[i].points += 8;
