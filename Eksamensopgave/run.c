@@ -161,6 +161,8 @@ void fillInContestantStruct(race *allResults, int amountofResults, contestant *a
 
 /* 2. Hvis man gennemfører cykelløbet uden at overskride løbets tidsgrænse får man (M - P)/17 extra-point,
       hvor M er antallet af ryttere der har gennemført løbet (inden for tidsgrænsen) og P er rytterens placering i løbet. */
+    //Det ville være ok smart, at lave et double for-loop her, men det ville så også medføre, at
+    //tiden bliver ekspotionelt mere.
 
 //Pseudokode
     if (comparePostion == "OTL"){
