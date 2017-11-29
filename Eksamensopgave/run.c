@@ -23,8 +23,9 @@ og siger "dette har jeg ikke allerede" så vil jeg indsætte rytteren. Gør dett
 #include <stdio.h>
 #include <string.h>
 
-#define MAX_EVENT_CHARACTERS 20
-#define MAX_NAME_CHARACTERS 20
+#define MAX_EVENT_CHARACTERS 30
+#define MAX_NAME_CHARACTERS 30
+#define MAX_LENGTH_30 30
 #define MAX_TEAM_CHARACTERS 4
 #define MAX_NATION_CHARACTERS 4
 #define MAX_POSITION_CHARACTERS 4
@@ -50,7 +51,6 @@ typedef struct contestant
     int age;
     char team[MAX_TEAM_CHARACTERS];
     char nation[MAX_TEAM_CHARACTERS];
-    char position[MAX_POSITION_CHARACTERS];
     int points;
 }contestant;
  
@@ -62,8 +62,11 @@ void fillInContestantStruct(race*, int, contestant*);
 void pointsOne(race*, int, contestant*);
 void pointsTwo(race*, int, contestant*);
 void pointsThree(race*, int, contestant*);
-void ridersFromBelgiaUnder23(race*, int);
-void ridersFromDenmark(race*, int);
+void contestantsFromBelgiumUnder23(race*, int);
+int checkIfDuplicate(contestant*, char*, char*, int);
+void contestantsFromDenmark(race*, int, contestant*, contestant*);
+int sortTeamsOfDanishContestants(const void *a, const void *b);
+int sortNamesOfDanishContestants(contestant*, contestant*);
 
  
 int main(int argc, char const *argv[])
@@ -72,30 +75,84 @@ int main(int argc, char const *argv[])
 
     race allResults[lines_in_file];
     contestant allContestants[lines_in_file];
+    contestant danishRiders[lines_in_file];
     int amountOfResults = readFile(allResults);
     fillInContestantStruct(allResults, amountOfResults, allContestants);
     pointsOne(allResults, amountOfResults, allContestants);
     pointsTwo(allResults, amountOfResults, allContestants);
     pointsThree(allResults, amountOfResults, allContestants);
-    ridersFromBelgiaUnder23(allResults, amountOfResults);
-    ridersFromDenmark(allResults, amountOfResults);
- /*   char input;
-    char tummas = "tummas";
-    while(1){
-        sscanf("input = %s", input)
-        switch(input){
-            case "1":
-              ridersFromBelgiaUnder23(allResults, amountOfResults);
-              break;
-            case "2":
-            printf("%s\n", tummas);  
-            default:
-            exit 
+   // contestantsFromBelgiumUnder23(allResults, amountOfResults);
+   // contestantsFromDenmark(allResults, amountOfResults, allContestants, danishRiders);
+    
+    int userInput();    
+    int input = 1;
+
+    while(input){
+    input = userInput();
+
+        switch(input)
+        {
+        case 1:
+            contestantsFromBelgiumUnder23(allResults, amountOfResults);
+        break;
+
+        case 2:
+            contestantsFromDenmark(allResults, amountOfResults, allContestants, danishRiders);
+        break;
+
+        case 3:
+        printf("Did not finish.\n");
+        break;
+
+        case 4:
+        printf("Did not finish.\n");
+        break;
+
+        case 5:
+        printf("Did not finish.\n");
+        break;
+
+        case 6:
+        printf("Did not finish.\n");
+        break;
+
+        default:
+        printf("Not a valid selection!\n");
         }
-    }
-*/
+
+        }
+
     return 0;
 }
+
+int userInput()
+  {
+    int choice;
+    printf("\n");
+    printf("\n");
+    printf("------------------------------------------\n");
+    printf("\n");
+    printf("\n");
+    printf("===========================\n");
+    printf("(1). Opgave 1.\n");
+    printf("(2). Opgave 2.\n");
+    printf("(3). Opgave 3.\n");
+    printf("(4). Opgave 4.\n");
+    printf("(5). Opgave 5.\n");
+    printf("(6). Opgave 6.\n");
+    printf("===========================\n\n");
+
+    printf("Enter your choice, please: ");
+    scanf("%d", &choice);
+    printf("\n");
+    printf("\n");
+    printf("------------------------------------------\n");
+    printf("\n");
+    printf("\n");
+
+
+    return choice;
+  }
 
 int lines_counter(void){
     FILE *fp = fopen("cykelloeb-2017", "r");
@@ -150,8 +207,6 @@ int readFile(race* allResults) {
     } 
     fclose(fp);
  
-    printf("%d ryttere.\n", amountOfResults);
- 
     return amountOfResults;
 }
 
@@ -166,6 +221,7 @@ void fillInContestantStruct(race *allResults, int amountofResults, contestant *a
         strcpy(allContestants[i].nation, allResults[i].nation);
     }
 }
+
 
 
 /**
@@ -185,16 +241,6 @@ void pointsOne(race* allResults, int amountofResults, contestant* allContestants
         } 
     }
 }
-
-//MANGLAR!!!!
-/*
-void amountOfContestantsPerEvent(race* allResults, int amountofResults, contestant* allContestants){
-    for (int i = 0; i < amountofResults; ++i)
-    {
-        if(allResults.[i].event)
-    }
-}
-*/
 
 /**
 * ----------------------------------
@@ -242,7 +288,7 @@ void pointsThree(race* allResults, int amountofResults, contestant* allContestan
         allContestants[i].points += 3;
         }
        
-    if(strcmp(allContestants[i].position, "OTL")){
+    if(strcmp(allResults[i].position, "OTL")){
         printf("");
         }
     }    
@@ -257,8 +303,8 @@ void pointsThree(race* allResults, int amountofResults, contestant* allContestan
 * ----------------------------------
 **/
  
-void ridersFromBelgiaUnder23(race* allResults, int amountofResults){
-    printf("\n OPGAVE 1\n \n");
+void contestantsFromBelgiumUnder23(race* allResults, int amountofResults){
+    printf("OPGAVE 1 \n \n");
  
     int i = 0;
     for(i = 0; i <= amountofResults; i++) {
@@ -286,91 +332,58 @@ void ridersFromBelgiaUnder23(race* allResults, int amountofResults){
 *   blot printer resultaterne direkte.
 * ----------------------------------
 **/
-
-    
-void ridersFromDenmark(race* allResults, int amountofResults){
-    printf("\n OPGAVE 2\n \n");
- 
-    int i = 0;
-    for(i = 0; i <= amountofResults; i++) {
-        if(strcmp(allResults[i].nation, "DEN") == 0)
-        printf("%s %s %s %d %s %s %s %s \n",
-            allResults[i].event,
-            allResults[i].firstName,
-            allResults[i].lastName,
-            allResults[i].age,
-            allResults[i].team,
-            allResults[i].nation,  
-            allResults[i].position,
-            allResults[i].time);
-    else
-        printf("");
+int checkIfDuplicate(contestant* allContestants, char* contestantFirstName, char* contestantLastName, int count){
+    int i;
+    for(i = 0; i < count; i++){
+         if((strcmp(allContestants[i].firstName, contestantFirstName) == 0) &&
+            (strcmp(allContestants[i].lastName, contestantLastName) == 0)){
+            return 0;
+        }         
     }
+    return 1;
 }
 
+void contestantsFromDenmark(race* allResults, int amountofResults, contestant* allContestants, contestant *danishRiders){
+    printf("OPGAVE 2 \n \n");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*   LAURA
-int i = 0, numberOfCyclists = 0, k = 0; /* ints used as boolean
-int cyclistAlreadyInArray = 0;
-for (int i = 0; i < numberOfElements; i++){
-    if(strcmp(allResults[i].nation, "DEN") == 0){
-        cyclistAlreadyInArray = 0;
-        for(int k = 0; k < numberOfCyclists; k++){
-            if((strcmp(allResults[i].name, cyclistsFromDenmark[k].name) == 0)
-                && 
-                (strcmp(allResults[i].lastName, cyclistsFromDenmark[k].lastName) == 0)){
-                cyclistAlreadyInArray = 1;
-            }
-            }
-            if(!cyclistAlreadyInArray){
-                strcpy(cyclistsFromDenmark[numberOfCyclists].name, allResults[i].name);
-                strcpy(cyclistsFromDenmark[numberOfCyclists].lastName, allResults[i].lastName);
-                strcpy(cyclistsFromDenmark[numberOfCyclists].team, allResults[i].team); numberOfCyclists++;
-            } 
-        } 
-    } sortCyclistsByTeamAndName(cyclistsFromDenmark, numberOfCyclists); 
-
-    return numberOfCyclists; 
-}
-*/
-/*
-PERNILLOS
-void ridersFromDenmark(contestant *allContestants, int amountofResults){
+    int countedLines = lines_counter();
     int i = 0;
-    qsort(allContestants[], amountofResults, sizeof(contestant), compareTeam);
-        for (i = 0; i <= amountofResults; i++) {
-            if (strcmp(allContestants[i].nation, "DEN") == 0)
-                printf("Contestants from Denmark: %s %s %s \n", allContestants[i].firstname, allContestants[i].lastName, allContestants[i].team);
-    
+    int j = 0;
+    for(i; i <= amountofResults; i++) {
+        if(checkIfDuplicate(allContestants, allContestants[i].firstName, allContestants[i].lastName, i)){
+            if(strcmp(allResults[i].nation, "DEN") == 0){
+                strcpy(danishRiders[j].firstName, allContestants[i].firstName);
+                strcpy(danishRiders[j].lastName, allContestants[i].lastName);
+                strcpy(danishRiders[j].team, allContestants[i].team);
+                strcpy(danishRiders[j].nation, allContestants[i].nation);
+                j++;      
+            }      
+       }
+    } 
+    qsort(danishRiders, j, sizeof(contestant), sortTeamsOfDanishContestants);
+    for(i = 0; i < j; i++) {
+            printf("%s %s (%s) %s\n",
+            danishRiders[i].firstName,
+            danishRiders[i].lastName,
+            danishRiders[i].team,
+            danishRiders[i].nation);
     }
-}
-int compareTeam(const void *a, const void *b){
+} 
+
+int sortTeamsOfDanishContestants(const void *a, const void *b){
    contestant *rider_a = (contestant *)a, *rider_b = (contestant *)b;
-   if(strcmp(rider_a->allContestants[i].team, rider_b->allContestants[i].team)){
-        return strcmp (rider_a->allContestants[i].team, rider_b->allContestants[i].team);
+   if(strcmp(rider_a->team, rider_b->team)){
+        return strcmp (rider_a->team, rider_b->team);
    }
     else {
-        return compareName(rider_a, rider_b); 
+        return sortNamesOfDanishContestants(rider_a, rider_b); 
     }
 }
 
-int compareName(contestant* rider_a, contestant* rider_b)
-{ 
-    return strcmp(rider_a->name, rider_b->name); }
-*/
+
+int sortNamesOfDanishContestants(contestant* rider_a, contestant* rider_b){ 
+    return strcmp(rider_a->firstName, rider_b->firstName); 
+}
 
 /**
 * ----------------------------------
@@ -390,7 +403,6 @@ int compareName(contestant* rider_a, contestant* rider_b)
 */
 
 
- 
 /**
 * ----------------------------------
 *   OPGAVE 5:
@@ -401,7 +413,6 @@ int compareName(contestant* rider_a, contestant* rider_b)
 **/
 
 
- 
 /**
 * ----------------------------------
 *   OPGAVE 6:
