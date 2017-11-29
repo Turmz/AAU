@@ -59,11 +59,11 @@ typedef struct contestant
 int lines_counter(void);
 int readFile(race* allResults);
 void fillInContestantStruct(race*, int, contestant*);
+void pointsOne(race*, int, contestant*);
+void pointsTwo(race*, int, contestant*);
+void pointsThree(race*, int, contestant*);
 void ridersUnder23(race*, int);
-void getM(race *);
 
-
- 
  
 int main(int argc, char const *argv[])
 {
@@ -72,8 +72,26 @@ int main(int argc, char const *argv[])
     race allResults[lines_in_file];
     contestant allContestants[lines_in_file];
     int amountOfResults = readFile(allResults);
-    ridersUnder23(allResults, amountOfResults);
     fillInContestantStruct(allResults, amountOfResults, allContestants);
+    pointsOne(allResults, amountOfResults, allContestants);
+    pointsTwo(allResults, amountOfResults, allContestants);
+    pointsThree(allResults, amountOfResults, allContestants);
+    ridersUnder23(allResults, amountOfResults);
+ /*   char input;
+    char tummas = "tummas";
+    while(1){
+        sscanf("input = %s", input)
+        switch(input){
+            case "1":
+              ridersUnder23(allResults, amountOfResults);
+              break;
+            case "2":
+            printf("%s\n", tummas);  
+            default:
+            exit 
+        }
+    }
+*/
     return 0;
 }
 
@@ -122,7 +140,7 @@ int readFile(race* allResults) {
 
     int convertSeconds(char *time){
 
-        int seconds = 0, hours = 0, minutes = 0;
+        int seconds = 0, minutes = 0, hours = 0;
 
         sscanf(time, " %d:%d:%d", &hours, &minutes, &seconds);
 
@@ -135,20 +153,8 @@ int readFile(race* allResults) {
     return amountOfResults;
 }
 
-
-/*
-Cykelrytterne tildeles et antal point (et positivt heltal) ud fra deres deltagelse, og deres opnåede resultater,
-i de cykelløb som indgår i datamaterialet. Her er reglerne for tildeling af points:
-
-1. Deltagelse og gennemførelse i et cykelløb (indenfor eller uden for en evt. tidsgrænse) giver 2 point.
-2. Hvis man gennemfører cykelløbet uden at overskride løbets tidsgrænse får man (M - P)/17 extra-point,
-   hvor M er antallet af ryttere der har gennemført løbet (inden for tidsgrænsen) og P er rytterens placering i løbet.
-3. Oven i dette får vinderen af et cykelløb 8 ekstra point, nummer to får 5 ekstra point, og nummer tre får 3 ekstra point.
-
-*/
-
 void fillInContestantStruct(race *allResults, int amountofResults, contestant *allContestants){
-    int i = 0, comparePostion = 0;
+    int i = 0;
     for(i = 0; i < amountofResults; i++) {
         allContestants[i].points = 0;
         strcpy(allContestants[i].firstName, allResults[i].firstName);
@@ -156,51 +162,84 @@ void fillInContestantStruct(race *allResults, int amountofResults, contestant *a
         allContestants[i].age = allResults[i].age;
         strcpy(allContestants[i].team, allResults[i].team);
         strcpy(allContestants[i].nation, allResults[i].nation);
+    }
+}
 
-/* 1. Deltagelse og gennemførelse i et cykelløb (indenfor eller uden for en evt. tidsgrænse) giver 2 point. */
+
+/**
+* ----------------------------------
+*   1. Deltagelse og gennemførelse i et cykelløb (indenfor eller uden for en evt. tidsgrænse) giver 2 point. 
+* ----------------------------------
+**/
+void pointsOne(race* allResults, int amountofResults, contestant* allContestants){
+
+    int comparePostion = 0;
+    for(int i = 0; i <= amountofResults; i++){
         if(!(strcmp(allResults[i].position, "DNF") == 0))
         {
             allContestants[i].points += 2;
             comparePostion = atoi(allResults[i].position);
-        }  
-
-/* 2. Hvis man gennemfører cykelløbet uden at overskride løbets tidsgrænse får man (M - P)/17 extra-point,
-      hvor M er antallet af ryttere der har gennemført løbet (inden for tidsgrænsen) og P er rytterens placering i løbet. */
-int riders_finished(contestant *conArray, char *nameOfRace, int linesInFile){
-    int i = 0, numberOfRiders = 0;
-    for (i = 0; i < linesInFile; i++) {
-        if (strcmp(conArray[i].nameOfRace, nameOfRace) == 0 && strcmp(conArray[i].placement, "DNF") != 0){
-            numberOfRiders++; }
-        }
-return numberOfRiders;
+        } 
+    }
 }
 
-       // int m = getM(allResults, amountofResults, allResults[i].event);
+/*
+void amountOfContestantsPerEvent(race* allResults, int amountofResults, contestant* allContestants){
+    for (int i = 0; i < amountofResults; ++i)
+    {
+        if(allResults.[i].event)
+    }
+}
+*/
+/**
+* ----------------------------------
+*   2. Hvis man gennemfører cykelløbet uden at overskride løbets tidsgrænse får man (M - P)/17 extra-point,
+*      hvor M er antallet af ryttere der har gennemført løbet (inden for tidsgrænsen) og P er rytterens placering i løbet.
+* ----------------------------------
+**/
+void pointsTwo(race* allResults, int amountofResults, contestant* allContestants){
 
-        if(!(strcmp(allResults[i].position, "OTL") == 0 || strcmp(allResults[i].position, "DNF") == 0)){
-        
-        } else 
-            allContestants[i].points += (getM(allResults[i].event) - atoi(allResults[i].position))/17;
-        
+    int countedLines = lines_counter();
+    int m = 0; // antallet af ryttere der har gennemført løbet
+    for (int i = 0; i < countedLines; i++){
+        if (!(strcmp(allResults[i].position, "OTL") == 0 || strcmp(allResults[i].position, "DNF") == 0 ))
+        {
+            m += 1;
+        }   
+    } 
+    for(int j = 0; j < countedLines; j++){
+        allContestants[j].points += (m - atoi(allResults[j].position))/17;
 
-/* 3. Oven i dette får vinderen af et cykelløb 8 ekstra point, nummer to får 5 ekstra point, og nummer tre får 3 ekstra point. */
-        if(comparePostion == 1) {
-            allContestants[i].points += 8;
+    }
+}
+
+
+/**
+* ----------------------------------
+*   3. Oven i dette får vinderen af et cykelløb 8 ekstra point, nummer to får 5 ekstra point, og nummer tre får 3 ekstra point.
+* ----------------------------------
+**/
+void pointsThree(race* allResults, int amountofResults, contestant* allContestants){
+    int comparePostion = 0;
+    
+    for(int i = 0; i <= amountofResults; i++){
+        comparePostion = atoi(allResults[i].position);
+
+    if(comparePostion == 1) {
+        allContestants[i].points += 8;
         }
-        if(comparePostion == 2) {
-            allContestants[i].points += 5;
+    if(comparePostion == 2) {
+        allContestants[i].points += 5;
         }
-        if(comparePostion == 3) {
-            allContestants[i].points += 3;
+    if(comparePostion == 3) {
+        allContestants[i].points += 3;
         }
        
-    if(strcmp(allContestants[i].position, "OTF")){
+    if(strcmp(allContestants[i].position, "OTL")){
         printf("");
-    }
-   
-   
-    printf("%d", allContestants[i].points);
-
+        }
+    }    
+}
 
 
 /**
@@ -228,8 +267,7 @@ void ridersUnder23(race* allResults, int amountofResults){
             allResults[i].time);
     else
         printf("");
-   
-}
+    }
 }
  
 /**
