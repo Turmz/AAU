@@ -17,6 +17,7 @@
 #include <string.h>
 
 #define MAX_EVENT_CHARACTERS 30
+#define LENGHT_30 30
 #define MAX_NAME_CHARACTERS 30
 #define MAX_TEAM_CHARACTERS 4
 #define MAX_NATION_CHARACTERS 4
@@ -68,7 +69,9 @@ void pointsThree(race*, int, contestant*);
     int compareTopTenContestants(const void *c, const void *d);
     /* Assignment 4 */
     void mostOTLDNFperEvent(race*, int , char*, char*);
-
+    /* Assignment 5 */
+    int checkIfDuplicate(contestant*, char*, char*, int);    
+    void greatestNationByPoints(race*, int, contestant*, contestant*);
 
 /* Main funtion */
 int main(int argc, char const *argv[])
@@ -78,7 +81,8 @@ int main(int argc, char const *argv[])
     race allResults[lines_in_file];
     contestant allContestants[lines_in_file];
     contestant danishContestants[lines_in_file];
-    char highestRaceName[MAX_EVENT_CHARACTERS];
+    contestant greatestNation[lines_in_file];
+    char mostOTLandDNF[MAX_EVENT_CHARACTERS];
     char event [MAX_EVENT_CHARACTERS];
     int amountOfResults = readFile(allResults);
     fillInContestantStruct(allResults, amountOfResults, allContestants);
@@ -163,7 +167,7 @@ int main(int argc, char const *argv[])
                 printf("---------------------------------------------- \n");    
                 printf("RESULTAT:\n");  
                 printf("---------------------------------------------- \n");                
-            mostOTLDNFperEvent(allResults, amountOfResults, event, highestRaceName);
+            mostOTLDNFperEvent(allResults, amountOfResults, event, mostOTLandDNF);
                 printf("---------------------------------------------- \n \n"); 
         break;
 
@@ -181,7 +185,7 @@ int main(int argc, char const *argv[])
                 printf("---------------------------------------------- \n");    
                 printf("RESULTAT:\n");     
                 printf("---------------------------------------------- \n");                
-            printf("Opgave ikke lavet.\n");
+            greatestNationByPoints(allResults, amountOfResults, allContestants, greatestNation);
                 printf("---------------------------------------------- \n \n"); 
         break;
 
@@ -209,7 +213,9 @@ int main(int argc, char const *argv[])
 
         default:
             clearScreen();
-                printf("Not a valid selection!\n");
+                printf("---------------------------------------------- \n");                
+            printf("Valg ikke muligt!!\n");
+                printf("---------------------------------------------- \n \n"); 
             }
 
         }
@@ -554,31 +560,32 @@ int compareTopTenContestants(const void *c, const void *d){
 * ----------------------------------
 */
 /* Function solves "OPGAVE 3". */
-void mostOTLDNFperEvent(race* allResults, int amountOfResults, char* event, char* highestRaceName){
+void mostOTLDNFperEvent(race* allResults, int amountOfResults, char* event, char* mostOTLandDNF){
+    
     int i = 0;
-    int temp = 0;
-    int max = 0;
+    int j = 0;
+    int k = 0;
     event = allResults[i].event;
     for (i; i <= amountOfResults; i++){
         if (strcmp(event, allResults[i].event) == 0){
             if (strcmp(allResults[i].position, "DNF") ==0 ||
                 strcmp(allResults[i].position, "OTL") ==0){
-                    temp += 1;
+                j += 1;
             }
         }
         else {
-            printf("%s havde %d deltagere med 'OTL' eller 'DNF' positioner.\n", event, temp);
+            printf("%s havde %d deltagere med 'OTL' eller 'DNF' positioner.\n", event, j);
 
-    if(temp > max){
-        highestRaceName = event;
-        max = temp;
-        temp = 0;
-        }
-        event = allResults[i].event;
-        }
+            if(j > k){
+                mostOTLandDNF = event;
+                k = j;
+                j = 0;}
+
+                event = allResults[i].event;
+            }
     }
     printf(" \n");
-    printf("%s havde flest ryttere med en placering\n", highestRaceName, temp);
+    printf("%s havde flest ryttere med en placering\n", mostOTLandDNF, j);
     printf("angivet som OTL eller DNF.\n");
 }
 
@@ -591,8 +598,39 @@ void mostOTLDNFperEvent(race* allResults, int amountOfResults, char* event, char
 *   (Hvis der er pointlighed mellem to eller flere nationer, er det op til dig at vælge én af disse).
 * ----------------------------------
 **/
+int checkIfNationDuplicate(contestant* greatestNation, char* contestantNation, int count){
+    int i;
+    for(i = 0; i < count; i++){
+         if(strcmp(greatestNation[i].nation, contestantNation) == 0){
+            return 0;
+        }         
+    }
+    return 1;
+}
 
-
+void greatestNationByPoints(race* allResults, int amountOfResults, contestant* allContestants, contestant *greatestNation){ 
+    int countedLines = lines_counter();
+    int i = 0;
+    int j = 0;
+    for(i; i <= amountOfResults; i++) {
+      // if(checkIfNationDuplicate(greatestNation, greatestNation[i].nation, i)){
+            if(strcmp(allResults[i].nation, allResults[j].nation) == 0){
+                strcpy(greatestNation[i].nation, allContestants[j].nation);
+                greatestNation[i].points = allContestants[j].points;
+//                    greatestNation[i].points++;
+                j++;      
+            }
+            else{
+                printf(" ");
+            }
+    }
+    for(i = 0; i < amountOfResults; i++) {
+            printf("%s %d \n",
+            greatestNation[i].nation,
+            greatestNation[i].points);
+    }
+}
+//}
 
 /**
 * ----------------------------------
