@@ -47,6 +47,7 @@ typedef struct contestant
 }contestant;
  
 /* Prototypes */
+void printToTerminal(race*, int, contestant*, contestant*, char*, char*);
 void clearScreen();
 int lines_counter(void);
 int readFile(race* allResults);
@@ -80,6 +81,24 @@ int main(int argc, char const *argv[])
     char event [MAX_EVENT_CHARACTERS];
     int amountOfResults = readFile(allResults);
     fillInContestantStruct(allResults, amountOfResults, allContestants);
+
+    /* Prints all results, if "--print" is before the program in terminal.*/
+    if(argc == 2 && strcmp(argv[1], "--print") == 0){
+        contestantsFromBelgiumUnder23(allResults, amountOfResults);
+        printf(" \n");        
+        contestantsFromDenmark(allResults, amountOfResults, allContestants, danishContestants);
+        printf(" \n");  
+        topTenContestants(allResults, amountOfResults, allContestants);
+        printf(" \n");  
+        mostOTLDNFperEvent(allResults, amountOfResults, event, mostOTLandDNF);
+        printf(" \n");  
+        printf("Opgave 5 ikke lavet.\n");
+        printf("Opgave 6 ikke lavet.\n");
+        getchar();
+    }
+    else{
+        printf("");
+    }
 
     /* Assignments where individual points were established. */
     pointsOne(allResults, amountOfResults, allContestants);
@@ -222,8 +241,7 @@ int main(int argc, char const *argv[])
 }
 
 /* Function to print out the text for the menu system. */
-int userInput()
-  {
+int userInput(){
     int choice;
         printf("\n");
         printf("For at bruge menuen nedenfor, skal de skrive tallet\n");
@@ -247,11 +265,9 @@ int userInput()
         scanf("%d", &choice);
         printf("\n");
     return choice;
-  }
-
+    }
 /*Function that clears the terminal. Cls for DOS-systems and clear for UNIX-systems.*/
-void clearScreen()
-{
+void clearScreen(){
     system("@cls||clear");
 }
 
