@@ -1,15 +1,14 @@
 /**
- * Sigvardsen_Tummas_20164825
- *
+ * ----------------------------------------------
  * Imperative Programming (IMPR) (DAT1, SW1, IxD3) - AAL - EXAM
  * ----------------------------------------------
- * Name:  Tummas Jóhan Sigvardsen
- * Email: tsgiva16@students.aau.dk
- * Study number: 20164825
- * Study: Interaktionsdesign
+ * Student ID: ..... Sigvardsen_Tummas_20164825
+ * Name: ........... Tummas Jóhan Sigvardsen
+ * Email: .......... tsgiva16@students.aau.dk
+ * Study: .......... Interaktionsdesign
+ * Student number: . 20164825
  * ----------------------------------------------
- */
- 
+ **/
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -46,6 +45,7 @@ typedef struct contestant
  
  
 /* Prototypes */
+void clearScreen();
 int lines_counter(void);
 int readFile(race* allResults);
 void fillInContestantStruct(race*, int, contestant*);
@@ -63,7 +63,8 @@ void pointsThree(race*, int, contestant*);
     void topTenContestants(race*, int, contestant*);
     void sortTopTenContestants(contestant*, int);
     int compareTopTenContestants(const void *c, const void *d);
-
+    /* Assignment 4 */
+    void raceWithMostOTLorDNT(race*, int , char*, char*);
 
 
 /* Main funtion */
@@ -74,10 +75,12 @@ int main(int argc, char const *argv[])
     race allResults[lines_in_file];
     contestant allContestants[lines_in_file];
     contestant danishContestants[lines_in_file];
+    char highestRaceName[MAX_EVENT_CHARACTERS];
+    char event [MAX_EVENT_CHARACTERS];
     int amountOfResults = readFile(allResults);
     fillInContestantStruct(allResults, amountOfResults, allContestants);
 
-    /* Assignments where points were established. */
+    /* Assignments where individual points were established. */
     pointsOne(allResults, amountOfResults, allContestants);
     pointsTwo(allResults, amountOfResults, allContestants);
     pointsThree(allResults, amountOfResults, allContestants);
@@ -85,58 +88,103 @@ int main(int argc, char const *argv[])
     /* Menu system for the assignments. */
     int userInput();    
     int input = 1;
-
+        printf("Hej og velkommen. Dette program er lavet\n");
+        printf("af Tummas Johan Sigvardsen. Studienr. 20164825.\n");
     while(input){
     input = userInput();
-
         switch(input)
         {
         case 1:
-            system("clear");    /* Unix */
-            system("cls");      /* Windows */
-            printf("ASSIGNMENT 1 \n \n");   
+            clearScreen();
+                printf("OPGAVE 1: \n");
+                printf("--------------------------------------------- \n");
+                printf("Find og udskriv loebsresultaterne for\n");
+                printf("alle belgiske cykelryttere under 23 aar. \n");
+                printf("I denne opgave er det OK at lave en funktion\n");
+                printf("som blot printer resultaterne direkte.\n");
+                printf("---------------------------------------------- \n");    
+                printf("RESULTAT:\n"); 
+                printf("---------------------------------------------- \n"); 
             contestantsFromBelgiumUnder23(allResults, amountOfResults);
+                printf("---------------------------------------------- \n \n");
         break;
-
+                printf("  \n");
         case 2:
-            system("clear");    /* Unix */
-            system("cls");      /* Windows */   
-            printf("ASSIGNMENT 2 \n \n");   
+            clearScreen(); 
+                printf("OPGAVE 2: \n");
+                printf("--------------------------------------------- \n");
+                printf("Find og udskriv alle de danske ryttere,\n");
+                printf("som har deltaget i et eller flere af de fire \n");
+                printf("cykelloeb.\n");
+                printf("Sorter primaert disse efter de hold som de\n");
+                printf("koerer paa. Hvis der er to danske ryttere paa\n");
+                printf("samme hold, sorteres de sekundaert alfabetisk\n");
+                printf("efter fornavn. Ogsaa i denne opgave er det OK\n");
+                printf("at lave en funktion som blot printer \n");
+                printf("resultaterne direkte. \n");  
+                printf("---------------------------------------------- \n");    
+                printf("RESULTAT:\n"); 
+                printf("---------------------------------------------- \n");                 
             contestantsFromDenmark(allResults, amountOfResults, allContestants, danishContestants);
+                printf("---------------------------------------------- \n \n");            
         break;
 
         case 3:
-            system("clear");    /* Unix */
-            system("cls");      /* Windows */
-            printf("ASSIGNMENT 3 \n \n");   
+            clearScreen();
+                printf("OPGAVE 3: \n");
+                printf("---------------------------------------------- \n"); 
+                printf("Udskriv de 10 ryttere som har opnaaet flest point.\n");
+                printf("Sorter primaert rytterne efter antal point.\n");
+                printf("Ved pointlighed sorteres efter alder (den yngste foerst).\n");
+                printf("Ved alderslighed sorteres alfabetisk efter\n");
+                printf("efternavnet. (Efternavnet er den del af rytterens\n");
+                printf("navn som er skrevet med udelukkende store bogstaver).\n"); 
+                printf("---------------------------------------------- \n");    
+                printf("RESULTAT:\n");  
+                printf("---------------------------------------------- \n");     
             topTenContestants(allResults, amountOfResults, allContestants);
+                printf("---------------------------------------------- \n \n");  
         break;
 
         case 4:
-            system("clear");    /* Unix */
-            system("cls");      /* Windows */
-            printf("ASSIGNMENT 4 \n \n");   
-            printf("Assignment not finished.\n");
+            clearScreen();
+                printf("OPGAVE 4: \n");
+                printf("---------------------------------------------- \n");    
+                printf("Find for hvert af de fire loeb det hold,\n");
+                printf("der har flest ryttere med en \n");
+                printf("placering angivet som OTL eller DNF.\n");  
+                printf("---------------------------------------------- \n");    
+                printf("RESULTAT:\n");  
+                printf("---------------------------------------------- \n");                
+            raceWithMostOTLorDNT(allResults, amountOfResults, event, highestRaceName);
+                printf("---------------------------------------------- \n \n"); 
         break;
 
         case 5:
-            system("clear");    /* Unix */
-            system("cls");      /* Windows */
-            printf("ASSIGNMENT 5 \n \n");   
-            printf("Assignment not finished.\n");
+            clearScreen(); 
+                printf("OPGAVE 5: \n");
+                printf("---------------------------------------------- \n");
+                printf("---------------------------------------------- \n");    
+                printf("RESULTAT:\n");     
+                printf("---------------------------------------------- \n");                
+            printf("Opgave ikke lavet.\n");
+                printf("---------------------------------------------- \n \n"); 
         break;
 
         case 6:
-            system("clear");    /* Unix */
-            system("cls");      /* Windows */
-            printf("ASSIGNMENT 6 \n \n");   
-            printf("Assignment not finished.\n");
+            clearScreen(); 
+                printf("OPGAVE 6: \n");
+                printf("---------------------------------------------- \n");
+                printf("---------------------------------------------- \n");    
+                printf("RESULTAT:\n");     
+                printf("---------------------------------------------- \n");                
+            printf("Opgave ikke lavet.\n");
+                printf("---------------------------------------------- \n \n"); 
         break;
 
         default:
-            system("clear");    /* Unix */
-            system("cls");      /* Windows */
-            printf("Not a valid selection!\n");
+            clearScreen();
+                printf("Not a valid selection!\n");
             }
 
         }
@@ -148,24 +196,32 @@ int userInput()
   {
     int choice;
         printf("\n");
+        printf("For at bruge menuen nedenfor, skal de skrive tallet\n");
+        printf("paa den oenskede opgave. Det vil sige, at foerste\n");
+        printf("opgave er markeret som (1), naeste som (2), osv.\n");
         printf("\n");
-        printf("|----------------------------|\n");
-        printf("|                            |\n");        
-        printf("|   (1) :    Assignment 1    |\n");
-        printf("|   (2) :    Assignment 2    |\n");
-        printf("|   (3) :    Assignment 3    |\n");
-        printf("|   (4) :    Assignment 4    |\n");
-        printf("|   (5) :    Assignment 5    |\n");
-        printf("|   (6) :    Assignment 6    |\n");
-        printf("|                            |\n");          
-        printf("|----------------------------|\n"); 
-        printf("\n");
-        printf("\n");
-        printf("Enter your desired assignment: ");
+        printf("|-------------------------------------------------|\n");
+        printf("|                                                 |\n");        
+        printf("|    Skriv (1) hvis de oensker at se Opgave 1     |\n");
+        printf("|    Skriv (2) hvis de oensker at se Opgave 2     |\n");
+        printf("|    Skriv (3) hvis de oensker at se Opgave 3     |\n");
+        printf("|    Skriv (4) hvis de oensker at se Opgave 4     |\n");
+        printf("|    Skriv (5) hvis de oensker at se Opgave 5     |\n");
+        printf("|    Skriv (6) hvis de oensker at se Opgave 6     |\n");
+        printf("|                                                 |\n");          
+        printf("|-------------------------------------------------|\n");
+        printf("\n"); 
+        printf("Skriv den opgave de oensker at se: ");
         scanf("%d", &choice);
         printf("\n");
     return choice;
   }
+
+/*Function that clears the terminal. Cls for DOS-systems and clear for UNIX-systems.*/
+void clearScreen()
+{
+    system("@cls||clear");
+}
 
 /* Function to count lines from file. */
 int lines_counter(void){
@@ -273,7 +329,8 @@ void pointsTwo(race* allResults, int amountofResults, contestant* allContestants
     int countedLines = lines_counter();
     int m = 0; // antallet af ryttere der har gennemført løbet
     for (int i = 0; i < countedLines; i++){
-        if (!(strcmp(allResults[i].position, "OTL") == 0 || strcmp(allResults[i].position, "DNF") == 0 ))
+        if (!(strcmp(allResults[i].position, "OTL") == 0 ||
+              strcmp(allResults[i].position, "DNF") == 0 ))
         {
             m += 1;
         }   
@@ -436,7 +493,7 @@ void topTenContestants(race* allResults, int amountofResults, contestant* allCon
 }
 
 /* Function sorts the top ten contestants */
-void sortTopTenContestants(contestant *allContestants, int amountOfResults){
+void sortTopTenContestants(contestant* allContestants, int amountOfResults){
     int i = 0;
     qsort(allContestants, amountOfResults, sizeof(contestant), compareTopTenContestants);
 }
@@ -452,7 +509,7 @@ int compareTopTenContestants(const void *c, const void *d){
     age = (contestant_c -> age - contestant_d -> age );
         if(age == 0){
             return (strcmp(contestant_c -> firstName, contestant_d -> firstName) &&
-                strcmp(contestant_c -> lastName, contestant_d -> lastName));
+                    strcmp(contestant_c -> lastName, contestant_d -> lastName));
         }
         else {
             return age;
@@ -471,7 +528,32 @@ int compareTopTenContestants(const void *c, const void *d){
 *   Find for hvert af de fire løb det hold, der har flest ryttere med en placering angivet som OTL eller DNF.
 * ----------------------------------
 */
+/* Opgave 4 funktioner */
+void raceWithMostOTLorDNT(race* allResults, int amountOfResults, char* event, char* highestRaceName){
+    int i = 0;
+    int temp = 0;
+    int max = 0;
+    event = allResults[i].event;
+    for (i; i <= amountOfResults; i++){
+        if (strcmp(event, allResults[i].event) == 0){
+            if (strcmp(allResults[i].position, "DNF") ==0 ||
+                strcmp(allResults[i].position, "OTL") ==0){
+                    temp += 1;
+            }
+        }
+        else {
+            printf("%s had :: %d :: contestants with 'OTL' or 'DNF' positions.\n", event, temp);
 
+    if(temp > max){
+        highestRaceName = event;
+        max = temp;
+        temp = 0;
+        }
+        event = allResults[i].event;
+        }
+    }
+    printf("\n%s had most failed contestants.\n", highestRaceName, temp);
+}
 
 
 /**
