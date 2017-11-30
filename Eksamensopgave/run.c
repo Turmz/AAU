@@ -16,7 +16,6 @@
 
 #define MAX_EVENT_CHARACTERS 30
 #define MAX_NAME_CHARACTERS 30
-#define MAX_LENGTH_30 30
 #define MAX_TEAM_CHARACTERS 4
 #define MAX_NATION_CHARACTERS 4
 #define MAX_POSITION_CHARACTERS 4
@@ -59,7 +58,7 @@ void contestantsFromDenmark(race*, int, contestant*, contestant*);
 int sortTeamsOfDanishContestants(const void *a, const void *b);
 int sortNamesOfDanishContestants(contestant*, contestant*);
 
- 
+/* Main file */
 int main(int argc, char const *argv[])
 {
     int lines_in_file = lines_counter();
@@ -69,10 +68,13 @@ int main(int argc, char const *argv[])
     contestant danishContestants[lines_in_file];
     int amountOfResults = readFile(allResults);
     fillInContestantStruct(allResults, amountOfResults, allContestants);
+
+    /* Assignments where points were established. */
     pointsOne(allResults, amountOfResults, allContestants);
     pointsTwo(allResults, amountOfResults, allContestants);
     pointsThree(allResults, amountOfResults, allContestants);
     
+    /* Menu system for the assignments. */
     int userInput();    
     int input = 1;
 
@@ -84,36 +86,42 @@ int main(int argc, char const *argv[])
         case 1:
             system("clear");    /* Unix */
             system("cls");      /* Windows */
+            printf("ASSIGNMENT 1 \n \n");   
             contestantsFromBelgiumUnder23(allResults, amountOfResults);
         break;
 
         case 2:
             system("clear");    /* Unix */
-            system("cls");      /* Windows */      
+            system("cls");      /* Windows */   
+            printf("ASSIGNMENT 2 \n \n");   
             contestantsFromDenmark(allResults, amountOfResults, allContestants, danishContestants);
         break;
 
         case 3:
             system("clear");    /* Unix */
             system("cls");      /* Windows */
+            printf("ASSIGNMENT 3 \n \n");   
             printf("Did not finish.\n");
         break;
 
         case 4:
             system("clear");    /* Unix */
             system("cls");      /* Windows */
+            printf("ASSIGNMENT 4 \n \n");   
             printf("Did not finish.\n");
         break;
 
         case 5:
             system("clear");    /* Unix */
             system("cls");      /* Windows */
+            printf("ASSIGNMENT 5 \n \n");   
             printf("Did not finish.\n");
         break;
 
         case 6:
             system("clear");    /* Unix */
             system("cls");      /* Windows */
+            printf("ASSIGNMENT 6 \n \n");   
             printf("Did not finish.\n");;
         break;
 
@@ -127,6 +135,7 @@ int main(int argc, char const *argv[])
     return 0;
 }
 
+/* Function to print out the text for the menu system. */
 int userInput()
   {
     int choice;
@@ -150,6 +159,7 @@ int userInput()
     return choice;
   }
 
+/* Function to count the lines file-input. */
 int lines_counter(void){
     FILE *fp = fopen("cykelloeb-2017", "r");
     int countedLines = 0, ch = 0;
@@ -164,7 +174,7 @@ int lines_counter(void){
 }
 
 
- 
+/* Function reads the file, and fills the "race" struct. */ 
 int readFile(race* allResults) {
     int amountOfResults = 0;
     FILE *fp;
@@ -178,7 +188,7 @@ int readFile(race* allResults) {
  
     while(!feof(fp)){
 
-    fscanf(fp, " %s %*c %s %[^\"]%*c %d %s %s %s %s ",
+    fscanf(fp," %s %*c %s %[^\"]%*c %d %s %s %s %s ",
         allResults[amountOfResults].event,
         allResults[amountOfResults].firstName,
         allResults[amountOfResults].lastName,
@@ -192,10 +202,14 @@ int readFile(race* allResults) {
         amountOfResults++;
     }
  
-
+/* Function converts the time from a string to seconds, and the back to a string.
+ * This is done to prevent any problems later.
+ */
     int convertSeconds(char *time){
 
-        int seconds = 0, minutes = 0, hours = 0;
+        int seconds = 0;
+        int minutes = 0;
+        int hours = 0;
 
         sscanf(time, " %d:%d:%d", &hours, &minutes, &seconds);
 
@@ -206,6 +220,7 @@ int readFile(race* allResults) {
     return amountOfResults;
 }
 
+/* Function reads from the "race"-struct and fills the "contestant" struct. */ 
 void fillInContestantStruct(race *allResults, int amountofResults, contestant *allContestants){
     int i = 0;
     for(i = 0; i < amountofResults; i++) {
@@ -288,6 +303,7 @@ void pointsThree(race* allResults, int amountofResults, contestant* allContestan
 }
 
 
+
 /**
 * ----------------------------------
 *   OPGAVE 1:
@@ -296,8 +312,6 @@ void pointsThree(race* allResults, int amountofResults, contestant* allContestan
 * ----------------------------------
 **/
 void contestantsFromBelgiumUnder23(race* allResults, int amountofResults){
-    printf("OPGAVE 1 \n \n");
- 
     int i = 0;
     for(i = 0; i <= amountofResults; i++) {
         if(strcmp(allResults[i].nation, "BEL") == 0 && allResults[i].age < 23)
@@ -314,7 +328,9 @@ void contestantsFromBelgiumUnder23(race* allResults, int amountofResults){
         printf("");
     }
 }
- 
+
+
+
 /**
 * ----------------------------------
 *   OPGAVE 2:
@@ -324,6 +340,8 @@ void contestantsFromBelgiumUnder23(race* allResults, int amountofResults){
 *   blot printer resultaterne direkte.
 * ----------------------------------
 **/
+
+/* Function checks if there are duplicates in the array */
 int checkIfDuplicate(contestant* allContestants, char* contestantFirstName, char* contestantLastName, int count){
     int i;
     for(i = 0; i < count; i++){
@@ -334,10 +352,8 @@ int checkIfDuplicate(contestant* allContestants, char* contestantFirstName, char
     }
     return 1;
 }
-
+/* Function solves "OPGAVE 2". */
 void contestantsFromDenmark(race* allResults, int amountofResults, contestant* allContestants, contestant *danishContestants){ 
-    printf("OPGAVE 2 \n \n");
-
     int countedLines = lines_counter();
     int i = 0;
     int j = 0;
@@ -362,19 +378,23 @@ void contestantsFromDenmark(race* allResults, int amountofResults, contestant* a
     }
 } 
 
+/* Function sorts the teams */
 int sortTeamsOfDanishContestants(const void *a, const void *b){
-   contestant *rider_a = (contestant *)a, *rider_b = (contestant *)b;
-   if(strcmp(rider_a->team, rider_b->team)){
-        return strcmp (rider_a->team, rider_b->team);
+   contestant *contestant_a = (contestant *)a, *contestant_b = (contestant *)b;
+   if(strcmp(contestant_a -> team, contestant_b -> team)){
+        return strcmp (contestant_a -> team, contestant_b -> team);
    }
     else {
-        return sortNamesOfDanishContestants(rider_a, rider_b); 
+        return sortNamesOfDanishContestants(contestant_a, contestant_b); 
     }
 }
 
-int sortNamesOfDanishContestants(contestant* rider_a, contestant* rider_b){ 
-    return strcmp(rider_a->firstName, rider_b->firstName); 
+/* Function sorts the name */
+int sortNamesOfDanishContestants(contestant* contestant_a, contestant* contestant_b){ 
+    return strcmp(contestant_a -> firstName, contestant_b -> firstName); 
 }
+
+
 
 /**
 * ----------------------------------
@@ -386,12 +406,14 @@ int sortNamesOfDanishContestants(contestant* rider_a, contestant* rider_b){
 **/
 
 
+
 /**
 * ----------------------------------
 *   OPGAVE 4:
 *   Find for hvert af de fire løb det hold, der har flest ryttere med en placering angivet som OTL eller DNF.
 * ----------------------------------
 */
+
 
 
 /**
@@ -402,6 +424,7 @@ int sortNamesOfDanishContestants(contestant* rider_a, contestant* rider_b){
 *   (Hvis der er pointlighed mellem to eller flere nationer, er det op til dig at vælge én af disse).
 * ----------------------------------
 **/
+
 
 
 /**
