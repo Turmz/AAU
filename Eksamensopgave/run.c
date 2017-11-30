@@ -54,22 +54,19 @@ void fillInContestantStruct(race*, int, contestant*);
 void pointsOne(race*, int, contestant*);
 void pointsTwo(race*, int, contestant*);
 void pointsThree(race*, int, contestant*);
-    /* Assignment 1 */
-    void contestantsFromBelgiumUnder23(race*, int);
-    /* Assignment 2 */
-    int checkIfDuplicate(contestant*, char*, char*, int);
-    void contestantsFromDenmark(race*, int, contestant*, contestant*);
-    int sortTeamsOfDanishContestants(const void *a, const void *b);
-    int sortNamesOfDanishContestants(contestant*, contestant*);
-    /* Assignment 3 */
-    void topTenContestants(race*, int, contestant*);
-    void sortTopTenContestants(contestant*, int);
-    int compareTopTenContestants(const void *c, const void *d);
-    /* Assignment 4 */
-    void mostOTLDNFperEvent(race*, int , char*, char*);
-    /* Assignment 5 */
-    int checkIfNationIsDuplicate(contestant*, char*, int);
-    void greatestNationByPoints(contestant*, int, contestant*);
+/* Assignment 1 */
+void contestantsFromBelgiumUnder23(race*, int);
+/* Assignment 2 */
+int checkIfDuplicate(contestant*, char*, char*, int);
+void contestantsFromDenmark(race*, int, contestant*, contestant*);
+int sortTeamsOfDanishContestants(const void *a, const void *b);
+int sortNamesOfDanishContestants(contestant*, contestant*);
+/* Assignment 3 */
+void topTenContestants(race*, int, contestant*);
+void sortTopTenContestants(contestant*, int);
+int compareTopTenContestants(const void *c, const void *d);
+/* Assignment 4 */
+void mostOTLDNFperEvent(race*, int , char*, char*);
 
 /* Main funtion */
 int main(int argc, char const *argv[])
@@ -79,7 +76,6 @@ int main(int argc, char const *argv[])
     race allResults[lines_in_file];
     contestant allContestants[lines_in_file];
     contestant danishContestants[lines_in_file];
-    contestant greatestNation[lines_in_file];
     char mostOTLandDNF[MAX_EVENT_CHARACTERS];
     char event [MAX_EVENT_CHARACTERS];
     int amountOfResults = readFile(allResults);
@@ -101,119 +97,124 @@ int main(int argc, char const *argv[])
         {
         case 1:
             clearScreen();
-                printf("---------------------------------------------- \n");
-                printf("OPGAVE 1: \n");
-                printf("--------------------------------------------- \n");
-                printf("Find og udskriv loebsresultaterne for\n");
-                printf("alle belgiske cykelryttere under 23 aar. \n");
-                printf("I denne opgave er det OK at lave en funktion\n");
-                printf("som blot printer resultaterne direkte.\n");
-                printf("---------------------------------------------- \n");    
-                printf("RESULTAT:\n"); 
-                printf("---------------------------------------------- \n"); 
+            printf("---------------------------------------------- \n");
+            printf("OPGAVE 1: \n");
+            printf("--------------------------------------------- \n");
+            printf("Find og udskriv loebsresultaterne for\n");
+            printf("alle belgiske cykelryttere under 23 aar. \n");
+            printf("I denne opgave er det OK at lave en funktion\n");
+            printf("som blot printer resultaterne direkte.\n");
+            printf("---------------------------------------------- \n");    
+            printf("RESULTAT:\n"); 
+            printf("---------------------------------------------- \n"); 
             contestantsFromBelgiumUnder23(allResults, amountOfResults);
-                printf("---------------------------------------------- \n \n");
-        break;
-                printf("  \n");
+            printf("---------------------------------------------- \n \n");
+            printf("  \n");
+            break;
+
         case 2:
             clearScreen();
-                printf("---------------------------------------------- \n");
-                printf("OPGAVE 2: \n");
-                printf("--------------------------------------------- \n");
-                printf("Find og udskriv alle de danske ryttere,\n");
-                printf("som har deltaget i et eller flere af de fire \n");
-                printf("cykelloeb.\n");
-                printf("Sorter primaert disse efter de hold som de\n");
-                printf("koerer paa. Hvis der er to danske ryttere paa\n");
-                printf("samme hold, sorteres de sekundaert alfabetisk\n");
-                printf("efter fornavn. Ogsaa i denne opgave er det OK\n");
-                printf("at lave en funktion som blot printer \n");
-                printf("resultaterne direkte. \n");  
-                printf("---------------------------------------------- \n");    
-                printf("RESULTAT:\n"); 
-                printf("---------------------------------------------- \n");                 
+            printf("---------------------------------------------- \n");
+            printf("OPGAVE 2: \n");
+            printf("--------------------------------------------- \n");
+            printf("Find og udskriv alle de danske ryttere,\n");
+            printf("som har deltaget i et eller flere af de fire \n");
+            printf("cykelloeb.\n");
+            printf("Sorter primaert disse efter de hold som de\n");
+            printf("koerer paa. Hvis der er to danske ryttere paa\n");
+            printf("samme hold, sorteres de sekundaert alfabetisk\n");
+            printf("efter fornavn. Ogsaa i denne opgave er det OK\n");
+            printf("at lave en funktion som blot printer \n");
+            printf("resultaterne direkte. \n");  
+            printf("---------------------------------------------- \n");    
+            printf("RESULTAT:\n"); 
+            printf("---------------------------------------------- \n");                 
             contestantsFromDenmark(allResults, amountOfResults, allContestants, danishContestants);
-                printf("---------------------------------------------- \n \n");            
-        break;
+            printf("---------------------------------------------- \n \n");            
+            break;
 
         case 3:
             clearScreen();
-                printf("---------------------------------------------- \n");
-                printf("OPGAVE 3: \n");
-                printf("---------------------------------------------- \n"); 
-                printf("Udskriv de 10 ryttere som har opnaaet flest point.\n");
-                printf("Sorter primaert rytterne efter antal point.\n");
-                printf("Ved pointlighed sorteres efter alder (den yngste foerst).\n");
-                printf("Ved alderslighed sorteres alfabetisk efter\n");
-                printf("efternavnet. (Efternavnet er den del af rytterens\n");
-                printf("navn som er skrevet med udelukkende store bogstaver).\n"); 
-                printf("---------------------------------------------- \n");    
-                printf("RESULTAT:\n");  
-                printf("---------------------------------------------- \n");     
+            printf("---------------------------------------------- \n");
+            printf("OPGAVE 3: \n");
+            printf("---------------------------------------------- \n"); 
+            printf("Udskriv de 10 ryttere som har opnaaet flest point.\n");
+            printf("Sorter primaert rytterne efter antal point.\n");
+            printf("Ved pointlighed sorteres efter alder (den yngste foerst).\n");
+            printf("Ved alderslighed sorteres alfabetisk efter\n");
+            printf("efternavnet. (Efternavnet er den del af rytterens\n");
+            printf("navn som er skrevet med udelukkende store bogstaver).\n"); 
+            printf("---------------------------------------------- \n");    
+            printf("RESULTAT:\n");  
+            printf("---------------------------------------------- \n");     
             topTenContestants(allResults, amountOfResults, allContestants);
-                printf("---------------------------------------------- \n \n");  
-        break;
+            printf("---------------------------------------------- \n \n");  
+            break;
 
         case 4:
             clearScreen();
-                printf("---------------------------------------------- \n");
-                printf("OPGAVE 4: \n");
-                printf("---------------------------------------------- \n");    
-                printf("Find for hvert af de fire loeb det hold,\n");
-                printf("der har flest ryttere med en \n");
-                printf("placering angivet som OTL eller DNF.\n");  
-                printf("---------------------------------------------- \n");    
-                printf("RESULTAT:\n");  
-                printf("---------------------------------------------- \n");                
+            printf("---------------------------------------------- \n");
+            printf("OPGAVE 4: \n");
+            printf("---------------------------------------------- \n");    
+            printf("Find for hvert af de fire loeb det hold,\n");
+            printf("der har flest ryttere med en \n");
+            printf("placering angivet som OTL eller DNF.\n");  
+            printf("---------------------------------------------- \n");    
+            printf("RESULTAT:\n");  
+            printf("---------------------------------------------- \n");                
             mostOTLDNFperEvent(allResults, amountOfResults, event, mostOTLandDNF);
-                printf("---------------------------------------------- \n \n"); 
-        break;
+            printf("---------------------------------------------- \n \n"); 
+            break;
 
         case 5:
             clearScreen(); 
-                printf("---------------------------------------------- \n");
-                printf("OPGAVE 5: \n");
-                printf("---------------------------------------------- \n");
-                printf("Find den nation, der samlet set har begaaet sig\n");
-                printf("bedst i de fire cykelloeb. Dette maales efter\n");
-                printf("summen af points, som ryttere fra nationen har\n");
-                printf("opnaaet i loebene. (Hvis der er pointlighed mellem\n");
-                printf("to eller flere nationer, er det op til dig\n");
-                printf("at vaelge een af disse).\n");
-                printf("---------------------------------------------- \n");    
-                printf("RESULTAT:\n");     
-                printf("---------------------------------------------- \n");                
-            greatestNationByPoints(allContestants, amountOfResults, greatestNation);
-                printf("---------------------------------------------- \n \n"); 
-        break;
+            printf("---------------------------------------------- \n");
+            printf("OPGAVE 5: \n");
+            printf("---------------------------------------------- \n");
+            printf("Find den nation, der samlet set har begaaet sig\n");
+            printf("bedst i de fire cykelloeb. Dette maales efter\n");
+            printf("summen af points, som ryttere fra nationen har\n");
+            printf("opnaaet i loebene. (Hvis der er pointlighed mellem\n");
+            printf("to eller flere nationer, er det op til dig\n");
+            printf("at vaelge een af disse).\n");
+            printf("---------------------------------------------- \n");    
+            printf("RESULTAT:\n");     
+            printf("---------------------------------------------- \n");                
+            printf("Opgave ikke lavet.\n");
+            printf("---------------------------------------------- \n \n"); 
+            break;
 
         case 6:
             clearScreen(); 
-                printf("OPGAVE 6: \n");
-                printf("---------------------------------------------- \n");
-                printf("Find i hvert af de fire cykelloeb mediantiden af \n");
-                printf("loebet. Mediantiden M af et bestemt cykelloeb er \n");
-                printf("den opnaaede loebstid, hvor halvdelen af\n");
-                printf("loebstiderne er mindre end eller lig med M,\n");
-                printf("og halvdelen af tiderne er stoerre end eller \n");
-                printf("lig med M. Loebsresultater med en placering\n");
-                printf("angivet som OTL eller DNF indgaar ikke, naar\n");
-                printf("vi beregner mediantiden. Hvis antallet af \n");
-                printf("ryttere i et loeb er lige oensker vi at gruppen\n");
-                printf("af ryttere med 'en hoej tid' er een mindre end\n");
-                printf("gruppen med 'en lav tid', relativ til M). \n");
-                printf("---------------------------------------------- \n");    
-                printf("RESULTAT:\n");     
-                printf("---------------------------------------------- \n");                
+            printf("OPGAVE 6: \n");
+            printf("---------------------------------------------- \n");
+            printf("Find i hvert af de fire cykelloeb mediantiden af \n");
+            printf("loebet. Mediantiden M af et bestemt cykelloeb er \n");
+            printf("den opnaaede loebstid, hvor halvdelen af\n");
+            printf("loebstiderne er mindre end eller lig med M,\n");
+            printf("og halvdelen af tiderne er stoerre end eller \n");
+            printf("lig med M. Loebsresultater med en placering\n");
+            printf("angivet som OTL eller DNF indgaar ikke, naar\n");
+            printf("vi beregner mediantiden. Hvis antallet af \n");
+            printf("ryttere i et loeb er lige oensker vi at gruppen\n");
+            printf("af ryttere med 'en hoej tid' er een mindre end\n");
+            printf("gruppen med 'en lav tid', relativ til M). \n");
+            printf("---------------------------------------------- \n");    
+            printf("RESULTAT:\n");     
+            printf("---------------------------------------------- \n");                
             printf("Opgave ikke lavet.\n");
-                printf("---------------------------------------------- \n \n"); 
-        break;
+            printf("---------------------------------------------- \n \n"); 
+            break;
+        
+        case 0:
+            clearScreen();
+            break;
 
         default:
             clearScreen();
-                printf("---------------------------------------------- \n");                
+            printf("---------------------------------------------- \n");                
             printf("Valg ikke muligt!!\n");
-                printf("---------------------------------------------- \n \n"); 
+            printf("---------------------------------------------- \n \n"); 
             }
 
         }
@@ -231,13 +232,15 @@ int userInput()
         printf("\n");
         printf("|-------------------------------------------------|\n");
         printf("|                                                 |\n");        
-        printf("|    Skriv (1) hvis de oensker at se Opgave 1     |\n");
-        printf("|    Skriv (2) hvis de oensker at se Opgave 2     |\n");
-        printf("|    Skriv (3) hvis de oensker at se Opgave 3     |\n");
-        printf("|    Skriv (4) hvis de oensker at se Opgave 4     |\n");
-        printf("|    Skriv (5) hvis de oensker at se Opgave 5     |\n");
-        printf("|    Skriv (6) hvis de oensker at se Opgave 6     |\n");
-        printf("|                                                 |\n");          
+        printf("|   Skriv (1) hvis de oensker at se Opgave 1      |\n");
+        printf("|   Skriv (2) hvis de oensker at se Opgave 2      |\n");
+        printf("|   Skriv (3) hvis de oensker at se Opgave 3      |\n");
+        printf("|   Skriv (4) hvis de oensker at se Opgave 4      |\n");
+        printf("|   Skriv (5) hvis de oensker at se Opgave 5      |\n");
+        printf("|   Skriv (6) hvis de oensker at se Opgave 6      |\n");
+        printf("|                                                 |\n"); 
+        printf("|   Skriv (0) hvis de oensker lukke programmet.   |\n");
+        printf("|                                                 |\n");         
         printf("|-------------------------------------------------|\n");
         printf("\n"); 
         printf("Skriv den opgave de oensker at se: ");
@@ -560,29 +563,29 @@ int compareTopTenContestants(const void *c, const void *d){
 /* Function solves "OPGAVE 4". */
 void mostOTLDNFperEvent(race* allResults, int amountOfResults, char* event, char* mostOTLandDNF){
     int i = 0;
-    int temp = 0;
-    int max = 0;
+    int temporary = 0;
+    int maximum = 0;
     event = allResults[i].event;
     for (i; i <= amountOfResults; i++){
         if (strcmp(event, allResults[i].event) == 0){
             if (strcmp(allResults[i].position, "DNF") == 0 ||
                 strcmp(allResults[i].position, "OTL") == 0){
-                temp += 1;
+                temporary += 1;
             }
         }
         else {
-            printf("%s havde %d deltagere med 'OTL' eller 'DNF' positioner.\n", event, temp);
+            printf("%s havde %d deltagere med 'OTL' eller 'DNF' positioner.\n", event, temporary);
 
-            if(temp > max){
+            if(temporary > maximum){
                 mostOTLandDNF = event;
-                max = temp;
-                temp = 0;
+                maximum = temporary;
+                temporary = 0;
             }
                 event = allResults[i].event;
             }
     }
     printf(" \n");
-    printf("%s havde flest ryttere med en placering\n", mostOTLandDNF, max);
+    printf("%s havde flest ryttere med en placering\n", mostOTLandDNF, maximum);
     printf("angivet som OTL eller DNF.\n");
 }
 
@@ -595,41 +598,7 @@ void mostOTLDNFperEvent(race* allResults, int amountOfResults, char* event, char
 *   (Hvis der er pointlighed mellem to eller flere nationer, er det op til dig at vælge én af disse).
 * ----------------------------------
 **/
-void greatestNationByPoints(contestant* allContestants, int amountOfResults, contestant* greatestNation){ 
-    int countedLines = lines_counter();
-    int i = 0;
-    int j = 0;
-    int amountOfNations = 0;
-    int position;
-    int temp = 0;
-    for(i = 0; i <= amountOfResults; i++) {
-       if(i == 0){
-        strcpy(greatestNation[j].nation, allContestants[i].nation);
-                greatestNation[j].points = allContestants[i].points;
-       }
-       for(j = 0; j <= amountOfNations ; j++){
-            if(strcmp(allContestants[i].nation, greatestNation[j].nation) == 0){
-                greatestNation[j].points += allContestants[i].points;
-                break;
-            }
-            else if(j == amountOfNations){
-                printf("%d    %s ", i, greatestNation[i].nation);
-                strcpy(greatestNation[j].nation, allContestants[i].nation);
-                greatestNation[j].points = allContestants[i].points;
-                amountOfNations++;
-            }       
-        }
-    }
-    for(i = 0; i< amountOfNations ; i++){
-        if(greatestNation[i].points > temp){
-            temp = greatestNation[i].points;
-            position = i;
-        }
-    }   
-    printf("%s har %d point.\n",
-            greatestNation[position].nation,
-            &greatestNation[position].points);
-}
+
 
 /**
 * ----------------------------------
