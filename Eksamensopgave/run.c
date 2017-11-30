@@ -82,37 +82,44 @@ int main(int argc, char const *argv[])
         switch(input)
         {
         case 1:
-            system("cls"); 
+            system("clear");    /* Unix */
+            system("cls");      /* Windows */
             contestantsFromBelgiumUnder23(allResults, amountOfResults);
         break;
 
         case 2:
-            system("cls");        
+            system("clear");    /* Unix */
+            system("cls");      /* Windows */      
             contestantsFromDenmark(allResults, amountOfResults, allContestants, danishContestants);
         break;
 
         case 3:
-            system("cls");
+            system("clear");    /* Unix */
+            system("cls");      /* Windows */
             printf("Did not finish.\n");
         break;
 
         case 4:
-            system("cls");
+            system("clear");    /* Unix */
+            system("cls");      /* Windows */
             printf("Did not finish.\n");
         break;
 
         case 5:
-            system("cls");
+            system("clear");    /* Unix */
+            system("cls");      /* Windows */
             printf("Did not finish.\n");
         break;
 
         case 6:
-            system("cls");
+            system("clear");    /* Unix */
+            system("cls");      /* Windows */
             printf("Did not finish.\n");;
         break;
 
         default:
-            system("cls");
+            system("clear");    /* Unix */
+            system("cls");      /* Windows */
             printf("Not a valid selection!\n");
             }
 
