@@ -58,7 +58,7 @@ void contestantsFromDenmark(race*, int, contestant*, contestant*);
 int sortTeamsOfDanishContestants(const void *a, const void *b);
 int sortNamesOfDanishContestants(contestant*, contestant*);
 
-/* Main file */
+/* Main funtion */
 int main(int argc, char const *argv[])
 {
     int lines_in_file = lines_counter();
