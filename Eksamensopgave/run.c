@@ -10,15 +10,6 @@
  * ----------------------------------------------
  */
  
- 
-/* ---------------------------------------------------------------------------------------
-Lav en funktion, som hvis man kigger alle runderne igennem, så hvis du kigger på rytternavnet,
-og siger "dette har jeg ikke allerede" så vil jeg indsætte rytteren. Gør dette ved et loop.
-1. Skal både tage hele mit race-array, og mit contestant-array og løbe igennem det.
-2. Lave en funktion, der kan løbe igennem mit contestant-array, og se om der er flere med samme navn, og derefter merge dem sammen.
-3. Hvis den ikke er tilføjet, så skal du have en funktion der gør det.
- ---------------------------------------------------------------------------------------*/
- 
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -75,14 +66,12 @@ int main(int argc, char const *argv[])
 
     race allResults[lines_in_file];
     contestant allContestants[lines_in_file];
-    contestant danishRiders[lines_in_file];
+    contestant danishContestants[lines_in_file];
     int amountOfResults = readFile(allResults);
     fillInContestantStruct(allResults, amountOfResults, allContestants);
     pointsOne(allResults, amountOfResults, allContestants);
     pointsTwo(allResults, amountOfResults, allContestants);
     pointsThree(allResults, amountOfResults, allContestants);
-   // contestantsFromBelgiumUnder23(allResults, amountOfResults);
-   // contestantsFromDenmark(allResults, amountOfResults, allContestants, danishRiders);
     
     int userInput();    
     int input = 1;
@@ -93,64 +82,64 @@ int main(int argc, char const *argv[])
         switch(input)
         {
         case 1:
+            system("cls"); 
             contestantsFromBelgiumUnder23(allResults, amountOfResults);
         break;
 
         case 2:
-            contestantsFromDenmark(allResults, amountOfResults, allContestants, danishRiders);
+            system("cls");        
+            contestantsFromDenmark(allResults, amountOfResults, allContestants, danishContestants);
         break;
 
         case 3:
-        printf("Did not finish.\n");
+            system("cls");
+            printf("Did not finish.\n");
         break;
 
         case 4:
-        printf("Did not finish.\n");
+            system("cls");
+            printf("Did not finish.\n");
         break;
 
         case 5:
-        printf("Did not finish.\n");
+            system("cls");
+            printf("Did not finish.\n");
         break;
 
         case 6:
-        printf("Did not finish.\n");
+            system("cls");
+            printf("Did not finish.\n");;
         break;
 
         default:
-        printf("Not a valid selection!\n");
-        }
+            system("cls");
+            printf("Not a valid selection!\n");
+            }
 
         }
-
     return 0;
 }
 
 int userInput()
   {
     int choice;
-    printf("\n");
-    printf("\n");
-    printf("------------------------------------------\n");
-    printf("\n");
-    printf("\n");
-    printf("===========================\n");
-    printf("(1). Opgave 1.\n");
-    printf("(2). Opgave 2.\n");
-    printf("(3). Opgave 3.\n");
-    printf("(4). Opgave 4.\n");
-    printf("(5). Opgave 5.\n");
-    printf("(6). Opgave 6.\n");
-    printf("===========================\n\n");
-
-    printf("Enter your choice, please: ");
-    scanf("%d", &choice);
-    printf("\n");
-    printf("\n");
-    printf("------------------------------------------\n");
-    printf("\n");
-    printf("\n");
-
-
+        printf("\n");
+        printf("\n");
+        printf("|----------------------------|\n");
+        printf("|                            |\n");        
+        printf("|   (1) :    Assignment 1    |\n");
+        printf("|   (2) :    Assignment 2    |\n");
+        printf("|   (3) :    Assignment 3    |\n");
+        printf("|   (4) :    Assignment 4    |\n");
+        printf("|   (5) :    Assignment 5    |\n");
+        printf("|   (6) :    Assignment 6    |\n");
+        printf("|                            |\n");          
+        printf("|----------------------------|\n"); 
+        printf("\n");
+        printf("\n");
+        printf("Enter your desired assignment: ");
+        scanf("%d", &choice);
+        printf("\n");
     return choice;
   }
 
@@ -229,7 +218,6 @@ void fillInContestantStruct(race *allResults, int amountofResults, contestant *a
 *   1. Deltagelse og gennemførelse i et cykelløb (indenfor eller uden for en evt. tidsgrænse) giver 2 point. 
 * ----------------------------------
 **/
-
 void pointsOne(race* allResults, int amountofResults, contestant* allContestants){
 
     int comparePosition = 0;
@@ -248,7 +236,6 @@ void pointsOne(race* allResults, int amountofResults, contestant* allContestants
 *      hvor M er antallet af ryttere der har gennemført løbet (inden for tidsgrænsen) og P er rytterens placering i løbet.
 * ----------------------------------
 **/
-
 void pointsTwo(race* allResults, int amountofResults, contestant* allContestants){
 
     int countedLines = lines_counter();
@@ -271,7 +258,6 @@ void pointsTwo(race* allResults, int amountofResults, contestant* allContestants
 *   3. Oven i dette får vinderen af et cykelløb 8 ekstra point, nummer to får 5 ekstra point, og nummer tre får 3 ekstra point.
 * ----------------------------------
 **/
-
 void pointsThree(race* allResults, int amountofResults, contestant* allContestants){
     int comparePosition = 0;
     
@@ -302,7 +288,6 @@ void pointsThree(race* allResults, int amountofResults, contestant* allContestan
 *   I denne opgave er det OK at lave en funktion som blot printer resultaterne direkte.
 * ----------------------------------
 **/
- 
 void contestantsFromBelgiumUnder23(race* allResults, int amountofResults){
     printf("OPGAVE 1 \n \n");
  
@@ -343,7 +328,7 @@ int checkIfDuplicate(contestant* allContestants, char* contestantFirstName, char
     return 1;
 }
 
-void contestantsFromDenmark(race* allResults, int amountofResults, contestant* allContestants, contestant *danishRiders){
+void contestantsFromDenmark(race* allResults, int amountofResults, contestant* allContestants, contestant *danishContestants){ 
     printf("OPGAVE 2 \n \n");
 
     int countedLines = lines_counter();
@@ -352,21 +337,21 @@ void contestantsFromDenmark(race* allResults, int amountofResults, contestant* a
     for(i; i <= amountofResults; i++) {
         if(checkIfDuplicate(allContestants, allContestants[i].firstName, allContestants[i].lastName, i)){
             if(strcmp(allResults[i].nation, "DEN") == 0){
-                strcpy(danishRiders[j].firstName, allContestants[i].firstName);
-                strcpy(danishRiders[j].lastName, allContestants[i].lastName);
-                strcpy(danishRiders[j].team, allContestants[i].team);
-                strcpy(danishRiders[j].nation, allContestants[i].nation);
+                strcpy(danishContestants[j].firstName, allContestants[i].firstName);
+                strcpy(danishContestants[j].lastName, allContestants[i].lastName);
+                strcpy(danishContestants[j].team, allContestants[i].team);
+                strcpy(danishContestants[j].nation, allContestants[i].nation);
                 j++;      
             }      
        }
     } 
-    qsort(danishRiders, j, sizeof(contestant), sortTeamsOfDanishContestants);
+    qsort(danishContestants, j, sizeof(contestant), sortTeamsOfDanishContestants);
     for(i = 0; i < j; i++) {
             printf("%s %s (%s) %s\n",
-            danishRiders[i].firstName,
-            danishRiders[i].lastName,
-            danishRiders[i].team,
-            danishRiders[i].nation);
+            danishContestants[i].firstName,
+            danishContestants[i].lastName,
+            danishContestants[i].team,
+            danishContestants[i].nation);
     }
 } 
 
@@ -379,7 +364,6 @@ int sortTeamsOfDanishContestants(const void *a, const void *b){
         return sortNamesOfDanishContestants(rider_a, rider_b); 
     }
 }
-
 
 int sortNamesOfDanishContestants(contestant* rider_a, contestant* rider_b){ 
     return strcmp(rider_a->firstName, rider_b->firstName); 
