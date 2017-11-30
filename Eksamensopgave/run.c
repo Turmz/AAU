@@ -52,11 +52,19 @@ void fillInContestantStruct(race*, int, contestant*);
 void pointsOne(race*, int, contestant*);
 void pointsTwo(race*, int, contestant*);
 void pointsThree(race*, int, contestant*);
-void contestantsFromBelgiumUnder23(race*, int);
-int checkIfDuplicate(contestant*, char*, char*, int);
-void contestantsFromDenmark(race*, int, contestant*, contestant*);
-int sortTeamsOfDanishContestants(const void *a, const void *b);
-int sortNamesOfDanishContestants(contestant*, contestant*);
+    /* Assignment 1 */
+    void contestantsFromBelgiumUnder23(race*, int);
+    /* Assignment 2 */
+    int checkIfDuplicate(contestant*, char*, char*, int);
+    void contestantsFromDenmark(race*, int, contestant*, contestant*);
+    int sortTeamsOfDanishContestants(const void *a, const void *b);
+    int sortNamesOfDanishContestants(contestant*, contestant*);
+    /* Assignment 3 */
+    void topTenContestants(race*, int, contestant*);
+    void sortTopTenContestants(contestant*, int);
+    int compareTopTenContestants(const void *c, const void *d);
+
+
 
 /* Main funtion */
 int main(int argc, char const *argv[])
@@ -101,28 +109,28 @@ int main(int argc, char const *argv[])
             system("clear");    /* Unix */
             system("cls");      /* Windows */
             printf("ASSIGNMENT 3 \n \n");   
-            printf("Did not finish.\n");
+            topTenContestants(allResults, amountOfResults, allContestants);
         break;
 
         case 4:
             system("clear");    /* Unix */
             system("cls");      /* Windows */
             printf("ASSIGNMENT 4 \n \n");   
-            printf("Did not finish.\n");
+            printf("Assignment not finished.\n");
         break;
 
         case 5:
             system("clear");    /* Unix */
             system("cls");      /* Windows */
             printf("ASSIGNMENT 5 \n \n");   
-            printf("Did not finish.\n");
+            printf("Assignment not finished.\n");
         break;
 
         case 6:
             system("clear");    /* Unix */
             system("cls");      /* Windows */
             printf("ASSIGNMENT 6 \n \n");   
-            printf("Did not finish.\n");;
+            printf("Assignment not finished.\n");
         break;
 
         default:
@@ -159,7 +167,7 @@ int userInput()
     return choice;
   }
 
-/* Function to count the lines file-input. */
+/* Function to count lines from file. */
 int lines_counter(void){
     FILE *fp = fopen("cykelloeb-2017", "r");
     int countedLines = 0, ch = 0;
@@ -174,7 +182,7 @@ int lines_counter(void){
 }
 
 
-/* Function reads the file, and fills the "race" struct. */ 
+/* Function reads file, and fills "race" struct. */ 
 int readFile(race* allResults) {
     int amountOfResults = 0;
     FILE *fp;
@@ -202,8 +210,10 @@ int readFile(race* allResults) {
         amountOfResults++;
     }
  
-/* Function converts the time from a string to seconds, and the back to a string.
- * This is done to prevent any problems later.
+/* Function converts the contestants time from a string to an integer,
+ * and the returns it as a string. This is done to prevent problems,
+ * if a contestant for example gets the result "DND" and therefore "0" time,
+ * and not the standard "XX:XX:XX" format.
  */
     int convertSeconds(char *time){
 
@@ -220,7 +230,7 @@ int readFile(race* allResults) {
     return amountOfResults;
 }
 
-/* Function reads from the "race"-struct and fills the "contestant" struct. */ 
+/* Function reads from "race"-struct and fills "contestant" struct. */ 
 void fillInContestantStruct(race *allResults, int amountofResults, contestant *allContestants){
     int i = 0;
     for(i = 0; i < amountofResults; i++) {
@@ -311,10 +321,11 @@ void pointsThree(race* allResults, int amountofResults, contestant* allContestan
 *   I denne opgave er det OK at lave en funktion som blot printer resultaterne direkte.
 * ----------------------------------
 **/
+/* Function solves "OPGAVE 1". */
 void contestantsFromBelgiumUnder23(race* allResults, int amountofResults){
     int i = 0;
     for(i = 0; i <= amountofResults; i++) {
-        if(strcmp(allResults[i].nation, "BEL") == 0 && allResults[i].age < 23)
+        if(strcmp(allResults[i].nation, "BEL") == 0 && allResults[i].age < 23){
         printf("%s %s %s %d %s %s %s %s \n",
             allResults[i].event,
             allResults[i].firstName,
@@ -323,9 +334,12 @@ void contestantsFromBelgiumUnder23(race* allResults, int amountofResults){
             allResults[i].team,
             allResults[i].nation,  
             allResults[i].position,
-            allResults[i].time);
-    else
+            allResults[i].time);    
+        }
+
+    else {
         printf("");
+    }
     }
 }
 
@@ -340,7 +354,6 @@ void contestantsFromBelgiumUnder23(race* allResults, int amountofResults){
 *   blot printer resultaterne direkte.
 * ----------------------------------
 **/
-
 /* Function checks if there are duplicates in the array */
 int checkIfDuplicate(contestant* allContestants, char* contestantFirstName, char* contestantLastName, int count){
     int i;
@@ -352,12 +365,13 @@ int checkIfDuplicate(contestant* allContestants, char* contestantFirstName, char
     }
     return 1;
 }
+
 /* Function solves "OPGAVE 2". */
-void contestantsFromDenmark(race* allResults, int amountofResults, contestant* allContestants, contestant *danishContestants){ 
+void contestantsFromDenmark(race* allResults, int amountOfResults, contestant* allContestants, contestant *danishContestants){ 
     int countedLines = lines_counter();
     int i = 0;
     int j = 0;
-    for(i; i <= amountofResults; i++) {
+    for(i; i <= amountOfResults; i++) {
         if(checkIfDuplicate(allContestants, allContestants[i].firstName, allContestants[i].lastName, i)){
             if(strcmp(allResults[i].nation, "DEN") == 0){
                 strcpy(danishContestants[j].firstName, allContestants[i].firstName);
@@ -389,7 +403,7 @@ int sortTeamsOfDanishContestants(const void *a, const void *b){
     }
 }
 
-/* Function sorts the name */
+/* Function sorts contestants name */
 int sortNamesOfDanishContestants(contestant* contestant_a, contestant* contestant_b){ 
     return strcmp(contestant_a -> firstName, contestant_b -> firstName); 
 }
@@ -404,6 +418,50 @@ int sortNamesOfDanishContestants(contestant* contestant_a, contestant* contestan
 *   alfabetisk efter efternavnet. (Efternavnet er den del af rytterens navn som er skrevet med udelukkende store bogstaver).
 * ----------------------------------
 **/
+/* Function solves "OPGAVE 3". */
+void topTenContestants(race* allResults, int amountofResults, contestant* allContestants){
+    int i = 0;
+    int j= 0;
+    sortTopTenContestants(allContestants, amountofResults);
+    for(i = 0; j < 10; i++){
+        if (checkIfDuplicate(allContestants, allContestants[i].firstName, allContestants[i].lastName, i)){
+            j++;
+        printf("%s %s, age %d, %d points.\n",
+            allContestants[i].firstName,
+            allContestants[i].lastName,
+            allContestants[i].age,
+            allContestants[i].points);
+        }
+    }
+}
+
+/* Function sorts the top ten contestants */
+void sortTopTenContestants(contestant *allContestants, int amountOfResults){
+    int i = 0;
+    qsort(allContestants, amountOfResults, sizeof(contestant), compareTopTenContestants);
+}
+
+/* Function sorts the top ten contestants by age and points*/
+int compareTopTenContestants(const void *c, const void *d){
+    contestant *contestant_c = (contestant*)c, *contestant_d = (contestant* )d;
+    int points = 0, age = 0;
+
+    points = (contestant_d -> points - contestant_c -> points);
+        if(points == 0){
+
+    age = (contestant_c -> age - contestant_d -> age );
+        if(age == 0){
+            return (strcmp(contestant_c -> firstName, contestant_d -> firstName) &&
+                strcmp(contestant_c -> lastName, contestant_d -> lastName));
+        }
+        else {
+            return age;
+        }
+    }
+        else {
+            return points;
+    }
+}
 
 
 
