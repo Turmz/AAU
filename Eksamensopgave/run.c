@@ -1,6 +1,7 @@
 /**
+ *
  * ----------------------------------------------
- * Imperative Programming (IMPR) (DAT1, SW1, IxD3) - AAL - EXAM
+ * EXAM: Imperative Programming (IMPR) (DAT1, SW1, IxD3) - AAL
  * ----------------------------------------------
  * Student ID: ..... Sigvardsen_Tummas_20164825
  * Name: ........... Tummas Jóhan Sigvardsen
@@ -8,7 +9,9 @@
  * Study: .......... Interaktionsdesign
  * Student number: . 20164825
  * ----------------------------------------------
+ *
  **/
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -64,7 +67,7 @@ void pointsThree(race*, int, contestant*);
     void sortTopTenContestants(contestant*, int);
     int compareTopTenContestants(const void *c, const void *d);
     /* Assignment 4 */
-    void raceWithMostOTLorDNT(race*, int , char*, char*);
+    void mostOTLDNFperEvent(race*, int , char*, char*);
 
 
 /* Main funtion */
@@ -96,6 +99,7 @@ int main(int argc, char const *argv[])
         {
         case 1:
             clearScreen();
+                printf("---------------------------------------------- \n");
                 printf("OPGAVE 1: \n");
                 printf("--------------------------------------------- \n");
                 printf("Find og udskriv loebsresultaterne for\n");
@@ -110,7 +114,8 @@ int main(int argc, char const *argv[])
         break;
                 printf("  \n");
         case 2:
-            clearScreen(); 
+            clearScreen();
+                printf("---------------------------------------------- \n");
                 printf("OPGAVE 2: \n");
                 printf("--------------------------------------------- \n");
                 printf("Find og udskriv alle de danske ryttere,\n");
@@ -131,6 +136,7 @@ int main(int argc, char const *argv[])
 
         case 3:
             clearScreen();
+                printf("---------------------------------------------- \n");
                 printf("OPGAVE 3: \n");
                 printf("---------------------------------------------- \n"); 
                 printf("Udskriv de 10 ryttere som har opnaaet flest point.\n");
@@ -148,6 +154,7 @@ int main(int argc, char const *argv[])
 
         case 4:
             clearScreen();
+                printf("---------------------------------------------- \n");
                 printf("OPGAVE 4: \n");
                 printf("---------------------------------------------- \n");    
                 printf("Find for hvert af de fire loeb det hold,\n");
@@ -156,14 +163,21 @@ int main(int argc, char const *argv[])
                 printf("---------------------------------------------- \n");    
                 printf("RESULTAT:\n");  
                 printf("---------------------------------------------- \n");                
-            raceWithMostOTLorDNT(allResults, amountOfResults, event, highestRaceName);
+            mostOTLDNFperEvent(allResults, amountOfResults, event, highestRaceName);
                 printf("---------------------------------------------- \n \n"); 
         break;
 
         case 5:
             clearScreen(); 
+                printf("---------------------------------------------- \n");
                 printf("OPGAVE 5: \n");
                 printf("---------------------------------------------- \n");
+                printf("Find den nation, der samlet set har begaaet sig\n");
+                printf("bedst i de fire cykelloeb. Dette maales efter\n");
+                printf("summen af points, som ryttere fra nationen har\n");
+                printf("opnaaet i loebene. (Hvis der er pointlighed mellem\n");
+                printf("to eller flere nationer, er det op til dig\n");
+                printf("at vaelge een af disse).\n");
                 printf("---------------------------------------------- \n");    
                 printf("RESULTAT:\n");     
                 printf("---------------------------------------------- \n");                
@@ -175,6 +189,17 @@ int main(int argc, char const *argv[])
             clearScreen(); 
                 printf("OPGAVE 6: \n");
                 printf("---------------------------------------------- \n");
+                printf("Find i hvert af de fire cykelloeb mediantiden af \n");
+                printf("loebet. Mediantiden M af et bestemt cykelloeb er \n");
+                printf("den opnaaede loebstid, hvor halvdelen af\n");
+                printf("loebstiderne er mindre end eller lig med M,\n");
+                printf("og halvdelen af tiderne er stoerre end eller \n");
+                printf("lig med M. Loebsresultater med en placering\n");
+                printf("angivet som OTL eller DNF indgaar ikke, naar\n");
+                printf("vi beregner mediantiden. Hvis antallet af \n");
+                printf("ryttere i et loeb er lige oensker vi at gruppen\n");
+                printf("af ryttere med 'en hoej tid' er een mindre end\n");
+                printf("gruppen med 'en lav tid', relativ til M). \n");
                 printf("---------------------------------------------- \n");    
                 printf("RESULTAT:\n");     
                 printf("---------------------------------------------- \n");                
@@ -483,7 +508,7 @@ void topTenContestants(race* allResults, int amountofResults, contestant* allCon
     for(i = 0; j < 10; i++){
         if (checkIfDuplicate(allContestants, allContestants[i].firstName, allContestants[i].lastName, i)){
             j++;
-        printf("%s %s, age %d, %d points.\n",
+        printf("%s %s er %d og har %d point.\n",
             allContestants[i].firstName,
             allContestants[i].lastName,
             allContestants[i].age,
@@ -528,8 +553,8 @@ int compareTopTenContestants(const void *c, const void *d){
 *   Find for hvert af de fire løb det hold, der har flest ryttere med en placering angivet som OTL eller DNF.
 * ----------------------------------
 */
-/* Opgave 4 funktioner */
-void raceWithMostOTLorDNT(race* allResults, int amountOfResults, char* event, char* highestRaceName){
+/* Function solves "OPGAVE 3". */
+void mostOTLDNFperEvent(race* allResults, int amountOfResults, char* event, char* highestRaceName){
     int i = 0;
     int temp = 0;
     int max = 0;
@@ -542,7 +567,7 @@ void raceWithMostOTLorDNT(race* allResults, int amountOfResults, char* event, ch
             }
         }
         else {
-            printf("%s had :: %d :: contestants with 'OTL' or 'DNF' positions.\n", event, temp);
+            printf("%s havde %d deltagere med 'OTL' eller 'DNF' positioner.\n", event, temp);
 
     if(temp > max){
         highestRaceName = event;
@@ -552,7 +577,9 @@ void raceWithMostOTLorDNT(race* allResults, int amountOfResults, char* event, ch
         event = allResults[i].event;
         }
     }
-    printf("\n%s had most failed contestants.\n", highestRaceName, temp);
+    printf(" \n");
+    printf("%s havde flest ryttere med en placering\n", highestRaceName, temp);
+    printf("angivet som OTL eller DNF.\n");
 }
 
 
