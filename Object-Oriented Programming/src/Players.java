@@ -16,11 +16,13 @@
 //        A game of baby Twilight is played between two to six players. Each player
 //        has a name, a unique race, and a unique color. The game has sixteen races such as: The
 //        Barony of Letnev, The Clan of Saar, The Emirates of Hacan, and The Federation of Sol.
+//
 //        Problem 1. Write a class to represent a player. The class should have an appropriate
 //        constructor and appropriate getters. Implement the equals, hashCode, and toString
 //        methods for the class.
 
 import java.util.Objects;
+import java.lang.*;
 
 public class Players {
     private String name;
@@ -69,6 +71,6 @@ public class Players {
                 ", colour='" + colour + '\'' +
                 '}';
     }
-    
+
 }
 
