@@ -17,7 +17,7 @@
 //        system has up to six neighboring systems. A system may have less than six neighbors if
 //        it is on the outer rim. We can identify the neighbors by their position: We have a system
 //        to the north, to the north-east, to the south-east, to the south, to the south-west, and
-//        nally to the north-west. A system has between zero and three planets. The planets in a
+//        finally to the north-west. A system has between zero and three planets. The planets in a
 //        system never change. Ships, on the other hand, may enter and leave a system. Figure 1
 //        shows an example of a Galaxy with systems and planets (ships not shown).
 //

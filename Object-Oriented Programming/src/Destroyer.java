@@ -16,9 +16,9 @@
 //        Problem 3. Write classes, which extend the interface, for each type of unit.
 
 public class Destroyer extends Units {
-    private int cost = 1;
-    private int combat  = 9;
-    private int speed = 2;
+    private int cost = 0;
+    private int combat = 0;
+    private int speed = 0;
     private int capacity = 0;
 
     public int setCost(int cost) {
