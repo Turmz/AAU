@@ -1,0 +1,9 @@
+Student Name: Tummas Jóhan Sigvardsen
+Student Number:
+Student Email:
+
+public class Main {
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
