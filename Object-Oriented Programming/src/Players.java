@@ -49,7 +49,9 @@ public class Players {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
+        if (this == o) {
+            return true;
+        }
         if (o == null || getClass() != o.getClass()) return false;
         Players players = (Players) o;
         return Objects.equals(name, players.name) &&
@@ -65,6 +67,7 @@ public class Players {
 
     @Override
     public String toString() {
+
         return "Players{" +
                 "name='" + name + '\'' +
                 ", race='" + race + '\'' +

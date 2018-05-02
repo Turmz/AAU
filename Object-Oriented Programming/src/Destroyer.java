@@ -21,12 +21,12 @@ public class Destroyer extends Units {
     private int speed = 2;
     private int capacity = 0;
 
-    public void setCost(int cost) {
+    public int setCost(int cost) {
         this.cost = cost;
         return cost;
     }
 
-    public void setCombat(int combat) {
+    public int setCombat(int combat) {
         this.combat = combat;
         return combat;
     }
