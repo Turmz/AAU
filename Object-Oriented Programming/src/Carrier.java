@@ -12,32 +12,48 @@
  */
 
 //ASSIGNMENT
-// Units
+// Unit
 //        Problem 3. Write classes, which extend the interface, for each type of unit.
 
-public class Carrier extends Units {
+public class Carrier implements Unit {
+    private String player;
+    public Carrier(String name) {
+        this.player = name;
+    }
+
+    private String type = "Carrier";
     private int cost = 3;
     private int combat  = 9;
     private int speed = 1;
     private int capacity = 6;
 
-    public void setCost(int cost) {
-        this.cost = cost;
+    @Override
+    public String getType() {
+        return type;
+    }
+
+    @Override
+    public int getCost() {
         return cost;
     }
 
-    public void setCombat(int combat) {
-        this.combat = combat;
+    @Override
+    public int getCombat() {
         return combat;
     }
 
-    public int setSpeed(int speed) {
-        this.speed = speed;
+    @Override
+    public int getSpeed() {
         return speed;
     }
 
-    public int setCapacity(int capacity) {
-        this.capacity = capacity;
+    @Override
+    public int getCapacity() {
         return capacity;
+    }
+
+    @Override
+    public String getPlayer() {
+        return player;
     }
 }

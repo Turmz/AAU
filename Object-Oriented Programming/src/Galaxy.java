@@ -18,6 +18,33 @@
 //        Problem 6. Write a class to represent the Galaxy. Add methods to and all (a) systems,
 //        (b) ships, and (c) planets in the Galaxy.
 
+import java.util.ArrayList;
+
 public class Galaxy {
+    private ArrayList<GameSystem> systems = new ArrayList<>();
+
+    public void addSystem(GameSystem system){
+        systems.add(system);
+    }
+
+    public ArrayList<GameSystem> getSystems() {
+        return systems;
+    }
+
+    public ArrayList<Unit> getShips(){
+        ArrayList<Unit> ships = new ArrayList<>();
+        for (GameSystem system: systems) {
+            ships.addAll(system.getShips());
+        }
+        return ships;
+    }
+
+    public ArrayList<Planet> getPlanets(){
+        ArrayList<Planet> planets = new ArrayList<>();
+        for (GameSystem system: systems) {
+            planets.addAll(system.getPlanets());
+        }
+        return planets;
+    }
 
 }

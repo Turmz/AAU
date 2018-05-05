@@ -24,12 +24,12 @@
 import java.util.Objects;
 import java.lang.*;
 
-public class Players {
+public class Player {
     private String name;
     private String race;
     private String colour;
 
-    public Players(String name, String race, String colour) {
+    public Player(String name, String race, String colour) {
         this.name = name;
         this.race = race;
         this.colour = colour;
@@ -53,10 +53,10 @@ public class Players {
             return true;
         }
         if (o == null || getClass() != o.getClass()) return false;
-        Players players = (Players) o;
-        return Objects.equals(name, players.name) &&
-                Objects.equals(race, players.race) &&
-                Objects.equals(colour, players.colour);
+        Player player = (Player) o;
+        return Objects.equals(name, player.name) &&
+                Objects.equals(race, player.race) &&
+                Objects.equals(colour, player.colour);
     }
 
     @Override
@@ -68,12 +68,11 @@ public class Players {
     @Override
     public String toString() {
 
-        return "Players{" +
+        return "Player{" +
                 "name='" + name + '\'' +
                 ", race='" + race + '\'' +
                 ", colour='" + colour + '\'' +
                 '}';
     }
-
 }
 

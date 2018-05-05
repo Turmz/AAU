@@ -12,7 +12,7 @@
  */
 
 //ASSIGNMENT
-//Units.
+//Unit.
 //        In baby Twilight, each player commands a fleet of spaceships.
 //        A spaceship has a type, a combat value, a resource cost, a movement speed,
 //        and capacity. Every spaceship, in the game, belongs to a specific player.
@@ -35,7 +35,11 @@
 //        Problem 2. Write an interface for units. The interface should have getters to retrieve
 //        the resource cost, combat value, movement speed, capacity, and the player who owns it.
 
-public interface Units {
+public interface Unit {
+    String getPlayer();
+
+    String getType();
+
     int getCost();
 
     int getCombat();
@@ -43,6 +47,4 @@ public interface Units {
     int getSpeed();
 
     int getCapacity();
-
-    String getName();
 }
