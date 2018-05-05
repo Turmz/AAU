@@ -1,4 +1,4 @@
-# AAU-Software
+# AAU
 
 ## Imperative Programming
 A personal collection of all my hand-ins in a Imperative Programming course. **All written in C.**
