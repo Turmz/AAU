@@ -56,4 +56,13 @@ public class Dreadnought implements Unit {
     public String getPlayer() {
         return player;
     }
+
+    @Override
+    public int compareTo(Unit unit) {
+        if (this.combat == unit.getCombat()){
+            return Integer.compare(unit.getCost(),this.cost);
+        } else {
+            return Integer.compare(unit.getCombat(),this.combat);
+        }
+    }
 }

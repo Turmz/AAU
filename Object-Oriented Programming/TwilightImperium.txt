@@ -1,0 +1,13 @@
+Player: 
+Pompey
+
+Planets: 
+Vega Minor
+Vega Major
+------------
+Player: 
+Crassus
+
+Planets: 
+Mecatol Rex
+------------

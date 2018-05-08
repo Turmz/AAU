@@ -57,4 +57,13 @@ public class Destroyer implements Unit {
     public int getCapacity() {
         return capacity;
     }
+
+    @Override
+    public int compareTo(Unit unit) {
+        if (this.combat == unit.getCombat()){
+            return Integer.compare(unit.getCost(),this.cost);
+        } else {
+            return Integer.compare(unit.getCombat(),this.combat);
+        }
+    }
 }

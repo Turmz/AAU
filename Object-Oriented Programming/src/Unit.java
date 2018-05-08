@@ -35,7 +35,7 @@
 //        Problem 2. Write an interface for units. The interface should have getters to retrieve
 //        the resource cost, combat value, movement speed, capacity, and the player who owns it.
 
-public interface Unit {
+public interface Unit extends Comparable<Unit>{
     String getPlayer();
 
     String getType();

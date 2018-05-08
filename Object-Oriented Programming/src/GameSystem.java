@@ -26,9 +26,10 @@
 //        currently in the system.
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GameSystem {
-    private ArrayList<Planet> planets = new ArrayList<>();
+    private HashMap<String, Planet> planets = new HashMap<>();
     private ArrayList<Unit> ships;
     private ArrayList<String> neighbours;
     private String hexName;
@@ -43,15 +44,15 @@ public class GameSystem {
         }
 
         for (Planet planet : inputPlanet) {
-            planets.add(planet);
+            planets.put(planet.getName(), planet);
         }
 
         this.ships = new ArrayList<>();
         this.hexName = hexName;
-        this.neighbours = getNeighbours();
+        this.neighbours = initNeighbours();
     }
 
-    private ArrayList<String> getNeighbours() throws Exception {
+    private ArrayList<String> initNeighbours() throws Exception {
         ArrayList<String> neighbours = new ArrayList<>();
 
         switch (this.hexName){
@@ -122,7 +123,11 @@ public class GameSystem {
         return ships;
     }
 
-    public ArrayList<Planet> getPlanets() {
+    public HashMap<String, Planet> getPlanets() {
         return planets;
+    }
+
+    public ArrayList<String> getNeighbours() {
+        return neighbours;
     }
 }

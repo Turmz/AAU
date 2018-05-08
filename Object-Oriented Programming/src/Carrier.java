@@ -23,7 +23,7 @@ public class Carrier implements Unit {
 
     private String type = "Carrier";
     private int cost = 3;
-    private int combat  = 9;
+    private int combat = 9;
     private int speed = 1;
     private int capacity = 6;
 
@@ -55,5 +55,14 @@ public class Carrier implements Unit {
     @Override
     public String getPlayer() {
         return player;
+    }
+
+    @Override
+    public int compareTo(Unit unit) {
+        if (this.combat == unit.getCombat()){
+            return Integer.compare(unit.getCost(),this.cost);
+        } else {
+            return Integer.compare(unit.getCombat(),this.combat);
+        }
     }
 }

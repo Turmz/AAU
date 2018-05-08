@@ -19,30 +19,31 @@
 //        (b) ships, and (c) planets in the Galaxy.
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Galaxy {
-    private ArrayList<GameSystem> systems = new ArrayList<>();
+    private HashMap<String, GameSystem> systems = new HashMap<>();
 
-    public void addSystem(GameSystem system){
-        systems.add(system);
+    public void addSystem(String key, GameSystem system){
+        systems.put(key, system);
     }
 
-    public ArrayList<GameSystem> getSystems() {
+    public HashMap<String, GameSystem> getSystems() {
         return systems;
     }
 
     public ArrayList<Unit> getShips(){
         ArrayList<Unit> ships = new ArrayList<>();
-        for (GameSystem system: systems) {
+        for (GameSystem system: systems.values()) {
             ships.addAll(system.getShips());
         }
         return ships;
     }
 
-    public ArrayList<Planet> getPlanets(){
-        ArrayList<Planet> planets = new ArrayList<>();
-        for (GameSystem system: systems) {
-            planets.addAll(system.getPlanets());
+    public HashMap<String, Planet> getPlanets(){
+        HashMap<String, Planet> planets = new HashMap<>();
+        for (GameSystem system: systems.values()) {
+            planets.putAll(system.getPlanets());
         }
         return planets;
     }
