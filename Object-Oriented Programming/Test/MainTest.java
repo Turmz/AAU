@@ -14,7 +14,8 @@
 //ASSIGNMENT
 //Problem 8.
 //        Write unit tests to ensure that your above implementation is correct.
-//        Legal Galaxies. A Galaxy is said to be legal if it satisfies the following properties:
+//        Legal Galaxies.
+//        A Galaxy is said to be legal if it satisfies the following properties:
 //       The center system must have exactly one planet named Mecatol Rex.
 //       Every planet belongs to at most one system.
 //       Every system has at most three planets.
@@ -74,7 +75,7 @@ public class MainTest {
     }
 
     @Test
-    public void test4() throws Exception {
+    public void test4() {
         boolean truth = false;
 
         for (GameSystem gameSystem : galaxy.getSystems().values()) {
