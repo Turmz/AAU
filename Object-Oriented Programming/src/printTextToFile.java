@@ -107,11 +107,11 @@ public class printTextToFile {
                 writer.newLine();
             }
 
-        // Cathces any errors, and displays an error message/exception.
+            // Cathces any errors, and displays an error message/exception.
         } catch (Exception e) {
             e.printStackTrace();
 
-        // Closes the writer, and outputs the file.
+            // Closes the writer, and outputs the file.
         } finally {
             System.out.println("--- A textfile with all the players and their planets have been outputted. ---");
             writer.close();

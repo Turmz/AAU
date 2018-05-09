@@ -19,8 +19,6 @@
 //
 //        Problem 4. Write a class to represent a planet.
 
-import java.lang.*;
-
 public class Planet {
     // Values for the planet
     private String name;
@@ -30,16 +28,17 @@ public class Planet {
     public Planet(String name, int resources) throws Exception {
         this.name = name;
         // Checks if a planet, has more than 6 or less than 0 resources.
-        if (resources > 6 || resources < 0){
+        if (resources > 6 || resources < 0) {
             throw new Exception("Illegal amount of resources!");
         } else {
             this.resources = resources;
         }
     }
+
     // Getter for a planets resources
     public int getResource() {
         return resources;
-        }
+    }
 
     // Getter for a planets name
     public String getName() {

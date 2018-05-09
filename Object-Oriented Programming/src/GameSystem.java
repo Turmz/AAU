@@ -35,17 +35,12 @@ public class GameSystem {
     private ArrayList<String> neighbours;
     private String hexName;
 
-    // Getter for the name of a system
-    public String getName(){
-        return hexName;
-    }
-
     // Constructor for a system
     // The reason I've used "Planet... inputPlanet" is because
     // not all GameSystems need to have a planet.
     public GameSystem(String hexName, Planet... inputPlanet) throws Exception {
         // If-statement for seeing, if there are more than 3 planets.
-        if (inputPlanet.length > 3){
+        if (inputPlanet.length > 3) {
             throw new Exception("Illegal amount of planets!");
         }
         // A foreach loop to see, to go trough all the planets.
@@ -58,48 +53,53 @@ public class GameSystem {
         this.neighbours = initNeighbours();
     }
 
+    // Getter for the name of a system
+    public String getName() {
+        return hexName;
+    }
+
     // ArrayLists for setting the neighbours of all systems
     private ArrayList<String> initNeighbours() throws Exception {
         ArrayList<String> neighbours = new ArrayList<>();
 
-        switch (this.hexName){
-            case "North" :
+        switch (this.hexName) {
+            case "North":
                 neighbours.add("North-East");
                 neighbours.add("North-West");
                 neighbours.add("Center");
                 break;
 
-            case "North-East" :
+            case "North-East":
                 neighbours.add("North");
                 neighbours.add("South-East");
                 neighbours.add("Center");
                 break;
 
-            case "South-East" :
+            case "South-East":
                 neighbours.add("North-East");
                 neighbours.add("South");
                 neighbours.add("Center");
                 break;
 
-            case "South" :
+            case "South":
                 neighbours.add("South-East");
                 neighbours.add("South-West");
                 neighbours.add("Center");
                 break;
 
-            case "South-West" :
+            case "South-West":
                 neighbours.add("North-West");
                 neighbours.add("South");
                 neighbours.add("Center");
                 break;
 
-            case "North-West" :
+            case "North-West":
                 neighbours.add("South-West");
                 neighbours.add("North");
                 neighbours.add("Center");
                 break;
 
-            case "Center" :
+            case "Center":
                 neighbours.add("North");
                 neighbours.add("North-East");
                 neighbours.add("South-East");
@@ -108,24 +108,25 @@ public class GameSystem {
                 neighbours.add("North-West");
                 break;
 
-            default: throw new Exception("Illegal system.");
+            default:
+                throw new Exception("Illegal system.");
         }
         return neighbours;
     }
 
     // Method for adding a ship to a system/player
-    public void addShip(Unit ship){
+    public void addShip(Unit ship) {
         ships.add(ship);
     }
 
     // Method for removing a ship from a system/player
-    public void removeShip(String type, String player){
+    public void removeShip(String type, String player) {
 
         // Foreach loop for going through all the ships in the system.
         for (Unit ship : ships) {
 
             // If-statement for checking, if the player owns the ship.
-            if(ship.getType().equals(type) && ship.getPlayer().equals(player)){
+            if (ship.getType().equals(type) && ship.getPlayer().equals(player)) {
                 ships.remove(ship);
                 break;
             }

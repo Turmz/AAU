@@ -37,7 +37,7 @@ public class MainTest {
     Galaxy galaxy;
 
     public MainTest() throws Exception {
-        galaxy  = Main.configuration();
+        galaxy = Main.configuration();
     }
 
     @Test
@@ -45,27 +45,27 @@ public class MainTest {
         // Tests if: The center system must have exactly one planet named Mecatol Rex.
         boolean truth = false;
         GameSystem gameSystem = galaxy.getSystems().get("Center");
-        if (gameSystem.getPlanets().get("Mecatol Rex") != null){
+        if (gameSystem.getPlanets().get("Mecatol Rex") != null) {
             truth = true;
         }
         Assert.assertTrue(truth);
     }
 
     @Test
-    public void test2(){
+    public void test2() {
         // Tests if: Every planet belongs to at most one system.
-        ArrayList <Planet> checkPlanets = new ArrayList<>();
+        ArrayList<Planet> checkPlanets = new ArrayList<>();
         checkPlanets.addAll(galaxy.getPlanets().values());
         Set<Planet> set = new HashSet<>(checkPlanets);
         Assert.assertTrue(checkPlanets.size() == set.size());
     }
 
     @Test
-    public void test3(){
+    public void test3() {
         boolean truth = true;
         // Tests if: Every system has at most three planets.
-        for (GameSystem gameSystem: galaxy.getSystems().values()) {
-            if(gameSystem.getPlanets().size() > 3 ){
+        for (GameSystem gameSystem : galaxy.getSystems().values()) {
+            if (gameSystem.getPlanets().size() > 3) {
                 truth = false;
                 break;
             }
@@ -79,19 +79,19 @@ public class MainTest {
         // Tests if: If system A is to the north of system B then the
         // system B is to the south of A. Similarly for the other five compass directions.
         for (GameSystem gameSystem : galaxy.getSystems().values()) {
-            for (String neighbour : gameSystem.getNeighbours()){
+            for (String neighbour : gameSystem.getNeighbours()) {
                 truth = false;
                 for (String neighboursNeighbour : galaxy.getSystems().get(neighbour).getNeighbours()) {
-                    if (gameSystem.getName().equals(neighboursNeighbour)){
+                    if (gameSystem.getName().equals(neighboursNeighbour)) {
                         truth = true;
                         break;
                     }
                 }
-                if (truth == false){
+                if (truth == false) {
                     break;
                 }
             }
-            if (truth == false){
+            if (truth == false) {
                 break;
             }
         }

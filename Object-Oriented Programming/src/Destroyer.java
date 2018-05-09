@@ -18,24 +18,23 @@
 public class Destroyer implements Unit {
     // The player, who will own the unit
     private String player;
-
+    // Units values
+    private String type = "Destroyer";
+    private int cost = 1;
+    private int combat = 9;
+    private int speed = 2;
+    private int capacity = 0;
     // Constructor for the unit
     public Destroyer(String name) {
         this.player = name;
     }
-
-    // Units values
-    private String type = "Destroyer";
-    private int cost = 1;
-    private int combat  = 9;
-    private int speed = 2;
-    private int capacity = 0;
 
     // Returns the player.
     @Override
     public String getPlayer() {
         return player;
     }
+
     // Returns the type of unit.
     @Override
     public String getType() {
@@ -66,16 +65,16 @@ public class Destroyer implements Unit {
         return capacity;
     }
 
-//    Problem 10.
+    //    Problem 10.
 //    Because the units first needed to be sorted with the combat value, and if their combat
 //    value was the same as another unit, it should be sorted with the cost value, I saw it
 //    as the easiest thing, just to sort them under their own class.
     @Override
     public int compareTo(Unit unit) {
-        if (this.combat == unit.getCombat()){
-            return Integer.compare(unit.getCost(),this.cost);
+        if (this.combat == unit.getCombat()) {
+            return Integer.compare(unit.getCost(), this.cost);
         } else {
-            return Integer.compare(unit.getCombat(),this.combat);
+            return Integer.compare(unit.getCombat(), this.combat);
         }
     }
 }

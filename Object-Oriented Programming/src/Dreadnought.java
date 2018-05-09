@@ -18,24 +18,23 @@
 public class Dreadnought implements Unit {
     // The player, who will own the unit
     private String player;
-
+    // Units values
+    private String type = "Dreadnought";
+    private int cost = 5;
+    private int combat = 5;
+    private int speed = 1;
+    private int capacity = 0;
     // Constructor for the unit
     public Dreadnought(String name) {
         this.player = name;
     }
-
-    // Units values
-    private String type = "Dreadnought";
-    private int cost = 5;
-    private int combat  = 5;
-    private int speed = 1;
-    private int capacity = 0;
 
     // Returns the player.
     @Override
     public String getPlayer() {
         return player;
     }
+
     // Returns the type of unit.
     @Override
     public String getType() {
@@ -72,10 +71,10 @@ public class Dreadnought implements Unit {
     // as the easiest thing, just to sort them under their own class.
     @Override
     public int compareTo(Unit unit) {
-        if (this.combat == unit.getCombat()){
-            return Integer.compare(unit.getCost(),this.cost);
+        if (this.combat == unit.getCombat()) {
+            return Integer.compare(unit.getCost(), this.cost);
         } else {
-            return Integer.compare(unit.getCombat(),this.combat);
+            return Integer.compare(unit.getCombat(), this.combat);
         }
     }
 }

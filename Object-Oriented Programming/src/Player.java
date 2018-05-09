@@ -22,7 +22,6 @@
 //        methods for the class.
 
 import java.util.Objects;
-import java.lang.*;
 
 public class Player {
     // Values for the player
@@ -48,6 +47,7 @@ public class Player {
     public String getColour() {
         return colour;
     }
+
     // This is done, so you can see exactly, what the .equals() does.
     @Override
     public boolean equals(Object o) {

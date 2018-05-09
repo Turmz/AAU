@@ -26,7 +26,7 @@ public class Galaxy {
     private HashMap<String, GameSystem> systems = new HashMap<>();
 
     // Method for adding a system to a galaxy
-    public void addSystem(String key, GameSystem system){
+    public void addSystem(String key, GameSystem system) {
         systems.put(key, system);
     }
 
@@ -36,24 +36,24 @@ public class Galaxy {
     }
 
     // Getter for retrieveing units in a system
-    public ArrayList<Unit> getShips(){
+    public ArrayList<Unit> getShips() {
         ArrayList<Unit> ships = new ArrayList<>();
 
         // Foreach loop, for going through all systems in a galaxy
         // and adding all the units into an ArrayList
-        for (GameSystem system: systems.values()) {
+        for (GameSystem system : systems.values()) {
             ships.addAll(system.getShips());
         }
         return ships;
     }
 
     // Getter for retrieveing all planets in a system, in a galaxy
-    public HashMap<String, Planet> getPlanets(){
+    public HashMap<String, Planet> getPlanets() {
         HashMap<String, Planet> planets = new HashMap<>();
 
         // Foreach loop, for going through all systems in a galaxy
         // and adding all the planets into an ArrayList
-        for (GameSystem system: systems.values()) {
+        for (GameSystem system : systems.values()) {
             planets.putAll(system.getPlanets());
         }
         return planets;

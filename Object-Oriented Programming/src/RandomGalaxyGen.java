@@ -52,9 +52,14 @@ public class RandomGalaxyGen {
         // Creates a list, that contains the numbers 0,1,2,3,4,5,6 and shuffles them.
         // This helps me later, when I need to add a random system, to the galaxy.
         ArrayList<Integer> ListOfNumbers = new ArrayList<Integer>(7);
-        ListOfNumbers.add(0); ListOfNumbers.add(1);  ListOfNumbers.add(2);
-        ListOfNumbers.add(3); ListOfNumbers.add(4); ListOfNumbers.add(5);
-        ListOfNumbers.add(6); Collections.shuffle(ListOfNumbers);
+        ListOfNumbers.add(0);
+        ListOfNumbers.add(1);
+        ListOfNumbers.add(2);
+        ListOfNumbers.add(3);
+        ListOfNumbers.add(4);
+        ListOfNumbers.add(5);
+        ListOfNumbers.add(6);
+        Collections.shuffle(ListOfNumbers);
 
         // Adds the "Center" system.
         raGalaxy.addSystem("Center", new GameSystem("Center", new Planet("Mecatol Rex", resourcesGenerator)));
@@ -89,8 +94,8 @@ public class RandomGalaxyGen {
             // GENERATE ONE PLANET.
         } else if (planetGenerator == 1) {
             raGalaxy.addSystem(listOfSystems.get(listOfNumbers.get(numb1)).getName(),
-            new GameSystem(listOfSystems.get(listOfNumbers.get(numb1)).getName(),
-            new Planet(listOfPlanets.get(listOfNumbers.get(numb1)).getName(), resourcesGenerator)));
+                    new GameSystem(listOfSystems.get(listOfNumbers.get(numb1)).getName(),
+                            new Planet(listOfPlanets.get(listOfNumbers.get(numb1)).getName(), resourcesGenerator)));
 
             // Prints out the name of the system, and amount of planets, and their respected names.
             System.out.println("New system added to game: " + listOfSystems.get(listOfNumbers.get(numb1)).getName() + ".");
@@ -105,9 +110,9 @@ public class RandomGalaxyGen {
 
         } else if (planetGenerator == 2) {
             raGalaxy.addSystem(listOfSystems.get(listOfNumbers.get(numb1)).getName(),
-            new GameSystem(listOfSystems.get(listOfNumbers.get(numb1)).getName(),
-            new Planet(listOfPlanets.get(listOfNumbers.get(numb1)).getName(), resourcesGenerator),
-            new Planet(listOfPlanets.get(listOfNumbers.get(numb2)).getName(), resourcesGenerator)));
+                    new GameSystem(listOfSystems.get(listOfNumbers.get(numb1)).getName(),
+                            new Planet(listOfPlanets.get(listOfNumbers.get(numb1)).getName(), resourcesGenerator),
+                            new Planet(listOfPlanets.get(listOfNumbers.get(numb2)).getName(), resourcesGenerator)));
 
             // Prints out the name of the system, and amount of planets, and their respected names.
             System.out.println("New system added to game: " + listOfSystems.get(listOfNumbers.get(numb1)).getName() + ".");
@@ -124,10 +129,10 @@ public class RandomGalaxyGen {
 
         } else if (planetGenerator == 3) {
             raGalaxy.addSystem(listOfSystems.get(listOfNumbers.get(numb1)).getName(),
-            new GameSystem(listOfSystems.get(listOfNumbers.get(numb1)).getName(),
-            new Planet(listOfPlanets.get(listOfNumbers.get(numb1)).getName(), resourcesGenerator),
-            new Planet(listOfPlanets.get(listOfNumbers.get(numb2)).getName(), resourcesGenerator),
-            new Planet(listOfPlanets.get(listOfNumbers.get(numb3)).getName(), resourcesGenerator)));
+                    new GameSystem(listOfSystems.get(listOfNumbers.get(numb1)).getName(),
+                            new Planet(listOfPlanets.get(listOfNumbers.get(numb1)).getName(), resourcesGenerator),
+                            new Planet(listOfPlanets.get(listOfNumbers.get(numb2)).getName(), resourcesGenerator),
+                            new Planet(listOfPlanets.get(listOfNumbers.get(numb3)).getName(), resourcesGenerator)));
 
             // Prints out the name of the system, and amount of planets, and their respected names.
             System.out.println("New system added to game: " + listOfSystems.get(listOfNumbers.get(numb1)).getName() + ".");

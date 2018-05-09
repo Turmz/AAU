@@ -18,24 +18,23 @@
 public class Carrier implements Unit {
     // The player, who will own the unit
     private String player;
-
-    // Constructor for the unit
-    public Carrier(String name) {
-        this.player = name;
-    }
-
     // Units values
     private String type = "Carrier";
     private int cost = 3;
     private int combat = 9;
     private int speed = 1;
     private int capacity = 6;
+    // Constructor for the unit
+    public Carrier(String name) {
+        this.player = name;
+    }
 
     // Returns the player.
     @Override
     public String getPlayer() {
         return player;
     }
+
     // Returns the type of unit.
     @Override
     public String getType() {
@@ -72,10 +71,10 @@ public class Carrier implements Unit {
     // as the easiest thing, just to sort them under their own class.
     @Override
     public int compareTo(Unit unit) {
-        if (this.combat == unit.getCombat()){
-            return Integer.compare(unit.getCost(),this.cost);
+        if (this.combat == unit.getCombat()) {
+            return Integer.compare(unit.getCost(), this.cost);
         } else {
-            return Integer.compare(unit.getCombat(),this.combat);
+            return Integer.compare(unit.getCombat(), this.combat);
         }
     }
 }
