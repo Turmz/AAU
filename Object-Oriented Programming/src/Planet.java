@@ -22,22 +22,26 @@
 import java.lang.*;
 
 public class Planet {
+    // Values for the planet
     private String name;
     private int resources;
 
+    // Constructor of the planet
     public Planet(String name, int resources) throws Exception {
         this.name = name;
-
+        // Checks if a planet, has more than 6 or less than 0 resources.
         if (resources > 6 || resources < 0){
             throw new Exception("Illegal amount of resources!");
         } else {
             this.resources = resources;
         }
     }
+    // Getter for a planets resources
     public int getResource() {
         return resources;
         }
 
+    // Getter for a planets name
     public String getName() {
         return name;
     }

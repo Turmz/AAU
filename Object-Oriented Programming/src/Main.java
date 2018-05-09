@@ -1,29 +1,59 @@
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.lang.reflect.Array;
-import java.nio.Buffer;
+/*
+ *
+ * -------------------------------------------------------
+ * Name:             Tummas Jóhan Sigvardsen
+ * Email:            tsigva16@student.aau.dk
+ * Student number:   20164825
+ * Course:           Objektorienteret Programmering (OOP) (DAT2, SW2, IxD4, MAT-tilvalg) - AAL - F18
+ * Education:        Interaktionsdesign
+ * Semester:         4. semester
+ * -------------------------------------------------------
+ *
+ */
+
 import java.util.*;
 
 class Main {
     public static void main(String[] args) {
         System.out.println("Problem 1: SOLVED");
+        System.out.println("You can find this under 'Player.java'");
+        System.out.println("");
         System.out.println("Problem 2: SOLVED");
+        System.out.println("You can find this under 'Unit.java'");
+        System.out.println("");
         System.out.println("Problem 3: SOLVED");
+        System.out.println("You can find this under 'Destroyer.java', 'Cruiser.java', 'Carrier.java' and 'Dreadnought.java'");
+        System.out.println("");
         System.out.println("Problem 4: SOLVED");
+        System.out.println("You can find this under 'Planet.java'");
+        System.out.println("");
         System.out.println("Problem 5: SOLVED");
+        System.out.println("You can find this under 'GameSystem.java'");
+        System.out.println("");
         System.out.println("Problem 6: SOLVED");
+        System.out.println("You can find this under 'Galaxy.java'");
+        System.out.println("");
         System.out.println("Problem 7: SOLVED");
+        System.out.println("You can find this under 'Main.java // configuration()'");
+        System.out.println("");
         System.out.println("Problem 8: SOLVED");
+        System.out.println("You can find this under '../Test/MainTest.java'");
+        System.out.println("");
         System.out.println("Problem 9: SOLVED");
+        System.out.println("You can find this under pretty much all of them. I tried to make Exceptions as I went along.");
+        System.out.println("");
         System.out.println("Problem 10: SOLVED");
+        System.out.println("You can find this under 'Main.java // returnSortedUnit()' and under all the units.");
+        System.out.println("");
         System.out.println("Problem 11: SOLVED");
+        System.out.println("You can find this under 'printTextToFile.java'");
+        System.out.println("");
         System.out.println("Problem 12: STARTED, BUT NOT SOLVED");
+        System.out.println("You can find this under 'RandomGalaxyGen.java'");
+        System.out.println("");
         System.out.println("Problem 13: NOT SOLVED");
+        System.out.println("");
         System.out.println("Problem 14: SOLVED");
-        System.out.println("--- Remember to write, why you have the 'compareTo' method, in the Unit-class. ---");
-        System.out.println("--- Remember to write, why you use directories and not just ArrayLists. ---");
-        System.out.println("--- Remember to have commentary in and before all functions. ---");
     }
 
     public static Galaxy configuration() throws Exception {
@@ -47,11 +77,14 @@ class Main {
 //
 //  You decide on the unspecified properties of the Galaxy, e.g. planet resources.
 
+        // Adds player to the galaxy, with their respected race and colour
         Player crassus = new Player("Crassus", "The Emirates of Hacan", "Blue");
         Player pompey = new Player("Pompey", "The Federation of Sol", "Red");
 
+        // Creates a new galaxy
         Galaxy galaxy = new Galaxy();
 
+        // Adds systems to the galaxy, and their respected planets
         galaxy.addSystem("Center", new GameSystem("Center", new Planet("Mecatol Rex", 6)));
         galaxy.addSystem("North", new GameSystem("North", new Planet("Vega Minor", 1), new Planet("Vega Major", 2)));
         galaxy.addSystem("North-East", new GameSystem("North-East"));
@@ -60,19 +93,22 @@ class Main {
         galaxy.addSystem("South-West", new GameSystem("South-West"));
         galaxy.addSystem("North-West", new GameSystem("North-West", new Planet("Mirage", 4)));
 
+        // Goes through all the system and gets their values, for later assigning the units to a player
         for (GameSystem system : galaxy.getSystems().values()) {
+            // Adds units to a system and assigns them to a player
             if (system.getName().equals("Center")) {
                 system.addShip(new Dreadnought("Crassus"));
                 system.addShip(new Dreadnought("Crassus"));
                 system.addShip(new Destroyer("Crassus"));
             }
-
+            // Adds units to a system and assigns them to a player
             if (system.getName().equals("North")) {
                 system.addShip(new Cruiser("Pompey"));
                 system.addShip(new Cruiser("Pompey"));
                 system.addShip(new Carrier("Pompey"));
             }
         }
+        // Returns the galaxy
         return galaxy;
     }
 
@@ -84,13 +120,20 @@ class Main {
 //  the more expensive one must appear first.
 
         ArrayList<Unit> allUnits = new ArrayList<>();
+        // Foreach loop, that goes through all systems in the galaxy
         for (GameSystem gameSystem : configuration().getSystems().values()) {
+            // Foreach loop, that goes through all systems in the galaxy
             for (Unit unit : gameSystem.getShips()) {
+                // If-statement that adds a unit to a player.
                 if (unit.getPlayer().equals(player))
                     allUnits.add(unit);
             }
         }
+        // Sorts the units, with the help of the "public int compareTo(Unit unit) {"
+        // methods under every unit.
         allUnits.sort(Comparable::compareTo);
+
+        // Returns the sorted units.
         return allUnits;
     }
 }

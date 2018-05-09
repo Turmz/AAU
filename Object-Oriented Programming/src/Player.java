@@ -25,10 +25,12 @@ import java.util.Objects;
 import java.lang.*;
 
 public class Player {
+    // Values for the player
     private String name;
     private String race;
     private String colour;
 
+    // Constructor for the player
     public Player(String name, String race, String colour) {
         this.name = name;
         this.race = race;
@@ -46,7 +48,7 @@ public class Player {
     public String getColour() {
         return colour;
     }
-
+    // This is done, so you can see exactly, what the .equals() does.
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -59,12 +61,14 @@ public class Player {
                 Objects.equals(colour, player.colour);
     }
 
+    // This is done, so you can see exactly, what the hashCode does.
     @Override
     public int hashCode() {
 
         return Objects.hash(name, race, colour);
     }
 
+    // This is done, so you can see exactly, what the .toString() does.
     @Override
     public String toString() {
 

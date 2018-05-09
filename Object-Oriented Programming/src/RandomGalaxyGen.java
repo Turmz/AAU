@@ -10,13 +10,22 @@
  * -------------------------------------------------------
  *
  */
-
 //ASSIGNMENT
 //        Problem 12.
 //        Write a method that constructs a random Galaxy with the Mecatol Rex
 //        system in the center and with one layer of systems around it. The systems should
 //        randomly have between zero and three planets. At least two systems should contain
 //        ships belonging to at least two players.
+
+// DISCLAIMER
+//        I ONLY GOT TO THE
+//
+//        "Write a method that constructs a random Galaxy with the Mecatol Rex
+//        system in the center and with one layer of systems around it. The systems should
+//        randomly have between zero and three planets."
+//
+//        PART. IT STILL DOESN'T WORK PERFECTLY.
+//        I INCLUDED IT, SO YOU COULD SEE, THAT I AT LEAST TRIED.
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,6 +63,7 @@ public class RandomGalaxyGen {
         System.out.println("Number of Planets in ListOfPlanets: " + ListOfPlanets.size());
         System.out.println("Number of Systems in ListOfSystems: " + ListOfSystems.size());
 
+        // Creates systems.
         createSystem(raGalaxy, resourcesGenerator, planetGenerator, numb1, numb2, numb3, ListOfSystems, ListOfPlanets, ListOfNumbers);
         createSystem(raGalaxy, resourcesGenerator, planetGenerator, numb1, numb2, numb3, ListOfSystems, ListOfPlanets, ListOfNumbers);
         createSystem(raGalaxy, resourcesGenerator, planetGenerator, numb1, numb2, numb3, ListOfSystems, ListOfPlanets, ListOfNumbers);
